@@ -1,0 +1,301 @@
+	// ===============================================================
+	// Makertron Core 
+	// ===============================================================
+
+	'use strict'
+
+	sessionStorage.server_address  = CONFIG_DATA.SERVER_ADDRESS + ":" + CONFIG_DATA.PORT
+	sessionStorage.root_doc = CONFIG_DATA.SERVER_PATH
+	
+	var ee = new EventEmitter()
+
+	import React from 'react'
+	import ReactDOM from 'react-dom'
+
+	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider} from 'react-mdl';	
+
+	import styles from './style.js' 
+	import shared from './shared.js' 
+
+	//import ThreeComponent  from './three.jsx';  
+	import EditorComponent from './editor.jsx'; 	
+	//import WidgetComponent from './widgets.jsx'; 
+	//import ConsoleComponent from './console.jsx'; 
+
+	import 'react-mdl/extra/material.js';
+	import 'react-mdl/extra/material.css';
+	//import 'react-mdl/extra/test.css';
+	
+	// =========================================================
+	// Tools 
+	// =========================================================
+	var Tools = React.createClass({
+		getInitialState: function() {
+    	return {};
+  	},	
+		componentWillMount() { 
+		},
+		componentDidMount() {
+			this.viewer_front()
+		},
+		editor_front(){	
+			console.log("editor")
+
+			$("#editor").css('opacity'    , 0.8);
+			$("#widgets").css('opacity' , 0);
+			$("#console").css('opacity'   , 0);
+			$("#viewer").css('opacity'    ,  1);
+
+			$("#editor").css('z-index' ,  3)
+			$("#viewer").css('z-index' ,  2)
+			$("#console").css('z-index' , 1)
+
+		},
+		viewer_front(){
+			console.log("viewer")
+			$("#editor").css('opacity' , 0)
+			$("#widgets").css('opacity', 0)
+			$("#console").css('opacity' ,0)
+			$("#viewer").css('opacity' , 1)
+
+			$("#viewer").css('z-index' , 3)
+			$("#editor").css('z-index' , 2)
+			$("#console").css('z-index' , 1)
+
+		},
+		widgets_front(){
+			//console.log("widgets") 
+			//$("#editor").css('opacity'  ,   0);
+			//$("#widgets").css('opacity' , 0.8);
+			//$("#console").css('opacity' ,   0);
+			//$("#viewer" ).css('opacity' ,   1);
+			//$("#widgets").css('z-index' ,   2);
+		},
+
+		console_front(){
+			console.log("console") 
+			$("#editor").css('opacity'  ,   0);
+			$("#widgets").css('opacity' ,   0);
+			$("#console").css('opacity' , 0.8);
+			$("#viewer" ).css('opacity' ,   1);
+
+			$("#console").css('z-index' , 3)
+			$("#viewer").css('z-index'  , 2)
+			$("#editor").css('z-index'  , 1)
+
+		
+		},
+
+		render() {
+
+			//<div className="col-xs-1"><button style={styles.button} type="button" id="Widgets" onClick={this.widgets_front}>Widgets</button></div>
+		
+    	return ( 
+					<div className="row" >
+						<div className="col-xs-1"><button style={styles.button} type="button" id="Edit" onClick={this.editor_front}>Edit</button></div>
+						<div className="col-xs-1"><button style={styles.button} type="button" id="3D" onClick={this.viewer_front}>3D</button></div>
+						<div className="col-xs-1"><button style={styles.button} type="button" id="Console" onClick={this.console_front}>Console</button></div> 
+					</div>
+			);
+		}	
+	});	
+		
+	// ------------------------------------------------------
+	// Handle user login and hook up editor if successful 
+	// ------------------------------------------------------
+	var Login = React.createClass({				
+		getInitialState: function() {
+    	return {username: 'spinefoo',password:'tester'};
+  	},
+		onUsernameChange: function(event) {
+    	this.setState({username: event.target.value});
+		},
+		onPasswordChange: function(event) {
+    	this.setState({password: event.target.value});
+		},
+		error( err ) { 
+			if ( err === 'timeout' ) {
+					console.log( err ) 
+			} 
+		}, 
+		rejected( data ) { 
+			console.log( "Login rejected" , data ) 
+		},
+		validated( root_object ) { 
+			this.props.patronus.begin( this.state.username , this.state.password , root_object ) 
+		}, 
+		onLoginClick: function(event) {
+			//var socket = io(sessionStorage.server_address)
+			//socket.emit( 'VALIDATE', {"username":this.state.username,"hash":this.state.password} ) // validate login
+			//socket.on( 'ACCEPTED', this.validated ) // Accept login 				
+			//socket.on( 'REJECTED', this.rejected ) // Reject login   
+			//socket.on( 'connect_error', this.error ) // Indterminate Error  
+			this.validated
+		},
+		onLogoutClick: function(event) {
+			this.props.patronus.logout() 
+		},
+		onRegisterClick: function(event) {		
+			// No registration yet 
+		},
+		componentWillMount() { 
+		},
+		render() {
+		  return (
+				<div className="row">
+					<div className="col-xs-5"><p>stuff</p></div>
+					<div className="col-xs-2">
+						<Textfield 
+												style={styles.button} 
+												label="" 
+												id ="username" 
+												type="text" 
+												onChange={this.onUsernameChange} 
+												placeholder="username"/>
+						</div>
+					<div className="col-xs-2">
+						<Textfield 
+												style={styles.button} 
+												label="" id ="password" 
+												type="password" 
+												onChange={this.onPasswordChange} 
+												placeholder="password"/>
+						</div>
+					<div className="col-xs-1"><button style={styles.button} type="button" id="login" onClick={this.onLoginClick}>Login</button></div>
+					<div className="col-xs-1"><button style={styles.button} type="button" id="logout" onClick={this.onLogoutClick}>Logout</button></div>
+					<div className="col-xs-1"><button style={styles.button} type="button" id="register" onClick={this.onRegisterClick}>Register</button></div>				
+				</div>
+		  );
+		}
+	});
+			
+	// -----------------------------------------------
+	// Will become ceanotype frame 
+	//------------------------------------------------
+	var Start = React.createClass({
+		getInitialState: function() {
+    	return { 
+ 								tools:false , 
+								editor:false , 
+								widgets:false ,
+								viewer:false , 
+								console:false, 
+								data: [],  
+								refresh : true  ,
+								log_text : "" , 
+							};
+  	},
+		componentWillMount() { 	
+		},	
+		load(data) { 	 
+			data[1].forEach(function(jsn){ 
+				jsn.object.forEach(function(obj){
+					obj.hash=shared.makeId()
+				}) 				
+			})
+			this.setState({ tools:true , editor:true , widgets:true , viewer:true , console:true ,  data: data }) 
+		}, 
+		begin( username , password , root_object ) { 
+			console.log( "Logging in..." ) 
+			var socket = io(sessionStorage.server_address)
+			socket.emit( 'EDITSCENE', { "username": username, "hash": password, "jsn_name": root_object } ) 
+			socket.on( 'GOEDITSCENE' , this.load )    
+		},
+		updateData( data ) { 		 
+			this.setState({ tools:true , editor:true , widgets:true ,viewer:true, console:true , data: data  })		
+		},	
+		updateLog( text ) { 
+			if ( $("#output") !== undefined ) { 
+				$("#output").html($("#output").html()+"<br>"+text) 
+			}
+		},
+		tools() { 
+			if ( this.state.tools === true ) { 
+				return (<Tools />)
+			}
+			else return (<div/>)   
+		}, 
+		editor() { 	
+			if ( this.state.editor === true ) { 
+				return (<EditorComponent patronus={this} data={this.state.data} />)		
+			}	
+			else {  
+				return (<div/>)
+			}
+		},
+		widgets() { 
+			if ( this.state.widgets === true ) {  
+				return (<WidgetComponent patronus={this} data={this.state.data} />)
+			}
+			else {  
+				return (<div/>)
+			}
+		}, 
+		viewer() {  
+			if ( this.state.viewer === true ) { 
+				return (<ThreeComponent patronus={this} data={this.state.data} />)
+			}
+			else {  
+				return (<div/>)
+			}
+		}, 		
+		console() {  
+			if ( this.state.console === true ) { 
+				return (<ConsoleComponent />)
+			}
+			else {  
+				return (<div/>)
+			}
+		}, 	
+		render() {
+    	return (
+				<div style={styles.whole_page}>
+					<div id="header" 	style={styles.small   }><Login patronus={this}/></div>
+					<div id="tools"   style={styles.small   }>{this.tools()   }</div>
+					<div id="widgets" style={styles.scroller}>{this.widgets() }</div>
+					<div id="editor"  style={styles.editor  }>{this.editor()  }</div> 
+  				<div id="viewer"  style={styles.main    }>{this.viewer()  }</div> 	 
+					<div id="console" style={styles.editor  }>{this.console() }</div>
+				</div>
+	  	);
+  	}
+	 });
+			
+	 //ReactDOM.render( <Start />, document.getElementById('root') );
+
+	class Test extends React.Component {
+		constructor(props) {
+    	super(props);
+    	this.state = { tools: false , editor: true };
+  	}
+  	componentDidMount() {
+  	}
+  	componentWillUnmount() {
+  	}
+		tools() { 
+			if ( this.state.tools === true ) { 
+				return (<Tools />)
+			}
+			else return (<div/>)   
+		} 
+		editor() { 	
+			if ( this.state.editor === true ) { 
+				return (<EditorComponent patronus={this} data={this.state.data} />)		
+			}	
+			else {  
+				return (<div/>)
+			}
+		}
+  	render() {
+    	return (
+    		<div style={styles.whole_page}>
+					<div id="header" 	style={styles.small   }><Login patronus={this}/></div>
+					<div id="tools"   style={styles.small   }>{this.tools()   }</div>
+					<div id="editor"  style={styles.editor}>{this.editor()}</div>
+				</div>
+    	);
+  	}
+	}
+
+	ReactDOM.render( <Test text="bob" date="12/16/7"/>, document.getElementById('root') );
+
