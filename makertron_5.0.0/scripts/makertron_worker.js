@@ -28,7 +28,8 @@ var csgProcess = (function () {
 	//importScripts('base64.js'); 
 	//importScripts('binarystlwriter.js'); 
 	//importScripts('blob_util.js'); 
-	importScripts('socket.io.js'); 
+	//importScripts('socket.io.js');
+	importScripts('https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js')  
 	importScripts('core/lodash.min.js') 
 	//importScripts('async.js') 
 	//importScripts('pako.min.js')
@@ -54,6 +55,7 @@ var csgProcess = (function () {
 	}
 
 	var postLog = function(result) {
+		console.log(result)
 		postMessage( { type: 'log' , data: arguments[0] } )
 	}
 
