@@ -212,9 +212,9 @@
   	render() {
     	return (
     		<div style={styles.whole_page}>
-					<SplitPane split="vertical" >
+					<SplitPane split="vertical"  primary="first" defaultSize={$(window).width()-600}>
       	  	<div>{this.viewer()}</div>
-      	  	<SplitPane split="horizontal" onDragFinished={this.handleDrag}>
+      	  	<SplitPane split="horizontal" onDragFinished={this.handleDrag} primary="first" defaultSize={300}>
       	      <div>{this.editor()}</div>
       	      <div>{this.console()}c</div>
       	  	</SplitPane>

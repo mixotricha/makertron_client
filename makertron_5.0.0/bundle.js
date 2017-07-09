@@ -34384,7 +34384,7 @@ var Start = function (_React$Component3) {
 				{ style: _style2.default.whole_page },
 				_react2.default.createElement(
 					_reactSplitPane2.default,
-					{ split: 'vertical' },
+					{ split: 'vertical', primary: 'first', defaultSize: $(window).width() - 600 },
 					_react2.default.createElement(
 						'div',
 						null,
@@ -34392,7 +34392,7 @@ var Start = function (_React$Component3) {
 					),
 					_react2.default.createElement(
 						_reactSplitPane2.default,
-						{ split: 'horizontal', onDragFinished: this.handleDrag },
+						{ split: 'horizontal', onDragFinished: this.handleDrag, primary: 'first', defaultSize: 300 },
 						_react2.default.createElement(
 							'div',
 							null,
@@ -76137,7 +76137,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2';
+var DEFAULT_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2';
+var USER_AGENT = typeof navigator !== 'undefined' ? navigator.userAgent : DEFAULT_USER_AGENT;
 
 var Pane = function (_React$Component) {
     _inherits(Pane, _React$Component);
@@ -76217,6 +76218,7 @@ module.exports = exports['default'];
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.RESIZER_DEFAULT_CLASSNAME = undefined;
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -76244,7 +76246,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2';
+var DEFAULT_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2';
+var USER_AGENT = typeof navigator !== 'undefined' ? navigator.userAgent : DEFAULT_USER_AGENT;
+var RESIZER_DEFAULT_CLASSNAME = exports.RESIZER_DEFAULT_CLASSNAME = 'Resizer';
 
 var Resizer = function (_React$Component) {
     _inherits(Resizer, _React$Component);
@@ -76320,11 +76324,10 @@ Resizer.propTypes = {
 
 Resizer.defaultProps = {
     prefixer: new _inlineStylePrefixer2.default({ userAgent: USER_AGENT }),
-    resizerClassName: 'Resizer'
+    resizerClassName: RESIZER_DEFAULT_CLASSNAME
 };
 
 exports.default = Resizer;
-module.exports = exports['default'];
 
 /***/ }),
 /* 306 */
@@ -76377,7 +76380,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2';
+var DEFAULT_USER_AGENT = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Safari/537.2';
+var USER_AGENT = typeof navigator !== 'undefined' ? navigator.userAgent : DEFAULT_USER_AGENT;
 
 function unFocus(document, window) {
     if (document.selection) {
@@ -76448,6 +76452,7 @@ var SplitPane = function (_React$Component) {
             if (allowResize) {
                 unFocus(document, window);
                 var position = split === 'vertical' ? event.touches[0].clientX : event.touches[0].clientY;
+
                 if (typeof onDragStarted === 'function') {
                     onDragStarted();
                 }
@@ -76471,7 +76476,8 @@ var SplitPane = function (_React$Component) {
                 maxSize = _props2.maxSize,
                 minSize = _props2.minSize,
                 onChange = _props2.onChange,
-                split = _props2.split;
+                split = _props2.split,
+                step = _props2.step;
             var _state = this.state,
                 active = _state.active,
                 position = _state.position;
@@ -76488,7 +76494,15 @@ var SplitPane = function (_React$Component) {
                         var height = node.getBoundingClientRect().height;
                         var current = split === 'vertical' ? event.touches[0].clientX : event.touches[0].clientY;
                         var size = split === 'vertical' ? width : height;
-                        var newPosition = isPrimaryFirst ? position - current : current - position;
+                        var positionDelta = isPrimaryFirst ? position - current : current - position;
+                        if (step) {
+                            if (Math.abs(positionDelta) < step) {
+                                return;
+                            }
+                            // Integer division
+                            // eslint-disable-next-line no-bitwise
+                            positionDelta = ~~(positionDelta / step) * step;
+                        }
 
                         var newMaxSize = maxSize;
                         if (maxSize !== undefined && maxSize <= 0) {
@@ -76500,21 +76514,23 @@ var SplitPane = function (_React$Component) {
                             }
                         }
 
-                        var newSize = size - newPosition;
+                        var newSize = size - positionDelta;
+                        var newPosition = position - positionDelta;
 
                         if (newSize < minSize) {
                             newSize = minSize;
+                            newPosition = newSize;
                         } else if (maxSize !== undefined && newSize > newMaxSize) {
                             newSize = newMaxSize;
-                        } else {
-                            this.setState({
-                                position: current,
-                                resized: true
-                            });
+                            newPosition = newSize;
                         }
 
                         if (onChange) onChange(newSize);
-                        this.setState({ draggedSize: newSize });
+                        this.setState({
+                            draggedSize: newSize,
+                            position: newPosition,
+                            resized: true
+                        });
                         ref.setState({ size: newSize });
                     }
                 }
@@ -76581,6 +76597,7 @@ var SplitPane = function (_React$Component) {
                 styleProps = _props4.style;
 
             var disabledClass = allowResize ? '' : 'disabled';
+            var resizerClassNamesIncludingDefault = resizerClassName ? resizerClassName + ' ' + _Resizer.RESIZER_DEFAULT_CLASSNAME : resizerClassName;
 
             var style = _extends({}, styleProps || {}, {
                 display: 'flex',
@@ -76649,7 +76666,7 @@ var SplitPane = function (_React$Component) {
                     ref: function ref(node) {
                         _this2.resizer = node;
                     },
-                    resizerClassName: resizerClassName,
+                    resizerClassName: resizerClassNamesIncludingDefault,
                     split: split,
                     style: resizerStyle || {}
                 }),
@@ -76696,7 +76713,8 @@ SplitPane.propTypes = {
     paneStyle: _reactStyleProptype2.default,
     pane1Style: _reactStyleProptype2.default,
     pane2Style: _reactStyleProptype2.default,
-    resizerClassName: _propTypes2.default.string
+    resizerClassName: _propTypes2.default.string,
+    step: _propTypes2.default.number
 };
 
 SplitPane.defaultProps = {
