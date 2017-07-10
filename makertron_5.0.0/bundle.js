@@ -35637,9 +35637,7 @@ module.exports = function (_React$Component) {
 		return _this2;
 	}
 
-	// ============================================================================
 	// Setup the orbit control state 
-	// ============================================================================
 
 
 	_createClass(ThreeComponent, [{
@@ -35742,9 +35740,7 @@ module.exports = function (_React$Component) {
 		value: function getZoomScale() {
 			return Math.pow(0.95, this.userZoomSpeed);
 		}
-		// ===========================================================
 		// update orbit control
-		// ===========================================================
 
 	}, {
 		key: 'orbit_update',
@@ -35780,6 +35776,8 @@ module.exports = function (_React$Component) {
 			}
 			this.render_scene();
 		}
+		// Mouse Movement
+
 	}, {
 		key: 'onMouseMove',
 		value: function onMouseMove(event) {
@@ -35814,6 +35812,8 @@ module.exports = function (_React$Component) {
 				this.lastY = movementY;
 			}
 		}
+		// On mouse click down 
+
 	}, {
 		key: 'onMouseDown',
 		value: function onMouseDown(event) {
@@ -35891,12 +35891,10 @@ module.exports = function (_React$Component) {
 			this.renderer.setClearColor(0xff0000, 0); // the default
 			this.renderer.shadowMap.enabled = true;
 			this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 1, 10000);
-			this.camera.position.set(0, 0, 400);
+			this.camera.position.set(400, 400, 400);
 			this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 			this.orbit_init();
-			//this.controls = new THREE.OrbitControls( this.camera , this.container);				
 			this.scene = new THREE.Scene();
-			//this.camera.lookAt(this.scene.position);				
 			this.container.appendChild(this.renderer.domElement); // bind to the container element 
 		}
 	}, {
@@ -35920,7 +35918,7 @@ module.exports = function (_React$Component) {
 		key: 'lights',
 		value: function lights() {
 			this.scene.add(new THREE.AmbientLight(0xffffff));
-			var back_light = new THREE.SpotLight(0x0000ff, 1.5);
+			var back_light = new THREE.SpotLight(0xefefef, 0.2);
 			back_light.position.set(0, 0, -500);
 			back_light.castShadow = true;
 			back_light.shadow.camera.near = 200;
@@ -35928,10 +35926,9 @@ module.exports = function (_React$Component) {
 			back_light.shadow.camera.fov = 50;
 			back_light.shadow.bias = -0.00022;
 			back_light.shadow.darkness = 0.5;
-			//back_light.shadow.map.width = 2048;
 			this.scene.add(back_light);
 
-			var front_light = new THREE.SpotLight(0x00ff00, 1.5);
+			var front_light = new THREE.SpotLight(0xefefef, 0.3);
 			front_light.position.set(0, 0, 500);
 			front_light.castShadow = true;
 			front_light.shadow.camera.near = 200;
@@ -35939,7 +35936,6 @@ module.exports = function (_React$Component) {
 			front_light.shadow.camera.fov = 50;
 			front_light.shadow.bias = -0.00022;
 			front_light.shadow.darkness = 0.5;
-			//front_light.shadow.map.width = 2048;
 			this.scene.add(front_light);
 		}
 	}, {
@@ -35958,28 +35954,31 @@ module.exports = function (_React$Component) {
 			    data,
 			    data_length;
 			var geoBufferLength = geoBuffer.length - 1;
-			var color = new THREE.Color();
-			color.setRGB(0.0, 0.0, 0.0);
+			//var color = new THREE.Color();
+			//color.setRGB( 1.0, 0.0, 0.0 );
 			for (i = 0; i < geoBufferLength; i += 12) {
 				//normals.push( geoBuffer[i+0] , geoBuffer[i+1] , geoBuffer[i+2] ) 
 				vertices.push(geoBuffer[i + 3], geoBuffer[i + 5], geoBuffer[i + 4], geoBuffer[i + 6], geoBuffer[i + 8], geoBuffer[i + 7], geoBuffer[i + 9], geoBuffer[i + 11], geoBuffer[i + 10]);
-				colors.push(color, color, color, color, color, color, color, color, color);
+				//colors.push( color , color , color , color , color , color , color , color , color )
 			}
 			//normals =  new Float32Array(normals)
 			vertices = new Float32Array(vertices);
-			colors = new Float32Array(colors);
+			//colors =  new Float32Array(colors)
 			var geometry = new THREE.BufferGeometry();
 			//geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
 			geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
 			//geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
 			geometry.computeBoundingSphere();
 			geometry.computeVertexNormals();
-			var material = new THREE.MeshPhongMaterial({
-				color: 0xccc00, specular: 0x111111, shininess: 1,
-				side: THREE.DoubleSide, vertexColors: THREE.NoColors
-			});
-			var msh = new THREE.Mesh(geometry, material);
-			return msh;
+
+			var materials = [new THREE.MeshPhongMaterial({ color: 0x48473e,
+				specular: 0xffffff,
+				shininess: 1,
+				side: THREE.DoubleSide
+			}), new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true })];
+
+			var obj = THREE.SceneUtils.createMultiMaterialObject(geometry, materials);
+			return obj;
 		}
 	}, {
 		key: 'update_scene',
@@ -35989,15 +35988,28 @@ module.exports = function (_React$Component) {
 			// Scene defaults
 			this.scene = new THREE.Scene();
 			this.lights();
-			var axisHelper = new THREE.AxisHelper(400);
-			this.scene.add(axisHelper);
-			var geometry = new THREE.PlaneGeometry(400, 400);
-			var material = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide, color: 0x0000ff, transparent: true, opacity: 0.5 });
+
+			var geometry = new THREE.PlaneGeometry(5000, 5000);
+			var material = new THREE.MeshLambertMaterial({ side: THREE.DoubleSide, color: 0x0000ff, transparent: true, opacity: 0.2 });
 			var plane = new THREE.Mesh(geometry, material);
 			plane.receiveShadow = true;
 			plane.rotation.set(this.radians(90), 0, 0);
-			plane.position.set(0, -100, 0);
+			plane.position.set(0, -500, 0);
 			this.scene.add(plane);
+
+			var size = 400;
+			var divisions = 5;
+			var gridHelper_a = new THREE.GridHelper(size, divisions, 0x718EA4, 0x718EA4);
+			this.scene.add(gridHelper_a);
+
+			var size = 400;
+			var divisions = 40;
+			var gridHelper_b = new THREE.GridHelper(size, divisions, 0x123652, 0x123652);
+			this.scene.add(gridHelper_b);
+
+			var axisHelper = new THREE.AxisHelper(400);
+			this.scene.add(axisHelper);
+
 			for (i = 0; i < this.props.data.length; i++) {
 				this.scene.add(this.createObject(JSON.parse(this.props.data[i])));
 			}
