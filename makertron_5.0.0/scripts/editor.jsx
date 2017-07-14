@@ -29,7 +29,7 @@
   	}
 		sendMessage(result) { this.props.patronus.updateScene(result)	  } 
 		textArea() { 
-			return <TextWidget  patronus={this}/>
+			return <TextWidget  patronus={this} text={this.props.text}/>
 		}
 		refreshData() {	
 			var parser = new Parser(this.props.patronus) 
@@ -44,13 +44,7 @@
 		}
 		componentDidUpdate() {
 		}
-		componentWillMount() {	
-		}
 		render() {
-			if ( sessionStorage.text === undefined ) {
-				$.get( "pipe.scad", function( data ) { sessionStorage.text=data });
-			 console.log("yup") 
-			} 
     	return (
 				<div style={{height:'100%',width:'100%',position:'absolute'}}>
 					<button style={styles.button} type="button" id="update" onClick={this.refreshData}>Update</button>
@@ -81,8 +75,8 @@
 			this.state.text = text;  
 			sessionStorage.text = text
 		}
-		componentDidUpdate() { 
-			//$("#texteditor").resize()
+		componentDidUpdate() {
+			sessionStorage.text = this.props.text 
 		}
 		render() {
     	return (
@@ -91,7 +85,7 @@
 									key={shared.makeId()}
 									id="texteditor"
     							setOptions={{vScrollBarAlwaysVisible:true}}
-									value={sessionStorage.text}
+									value={this.props.text}
 									onChange={this.onChange}
 									editorProps={{$blockScrolling:Infinity}}
 									style={{height:'80%',position:'absolute',opacity:'0.5'}}

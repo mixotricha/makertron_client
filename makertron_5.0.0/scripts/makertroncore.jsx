@@ -10,8 +10,8 @@
 	var ee = new EventEmitter()
 
 	import React from 'react'
-	import ReactDOM from 'react-dom'
-	
+	import ReactDOM from 'react-dom'	
+
 	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider} from 'react-mdl';	
 
 	import SplitPane from 'react-split-pane' 
@@ -27,8 +27,6 @@
 	import 'react-mdl/extra/material.js';
 	import 'react-mdl/extra/material.css';
 	import '../resource/css/SplitPane.css';
-
-
 
 	// --------------------------------------------------------
 	// Generate a hashed string
@@ -192,19 +190,29 @@
 		tools() { 
 			return (<Tools patronus={this}/>)
 		} 
-		editor() { 	
+		editor() { 
 			return (<EditorComponent patronus={this} text={this.state.text}/>)
 		}
 		console() { 	 
-			//return (<div/>)
 			return (<ConsoleComponent patronus={this} data={this.state.log} />)		
 		}
 		viewer() { 	 
 			return (<ThreeComponent patronus={this} data={this.state.result} />)		
 		}
+		componentWillMount() {
+			console.log( "to here" ); 
+			var _this = this 			
+			if ( sessionStorage.text === undefined ) {
+				$.get( "pipe.scad", function( data ) { 	
+					_this.setState({text:data})
+				});
+			} 			 
+		}
 		componentDidMount() {}
-  	componentWillUnmount() {}
+  	componentWillUnmount() {
+		}
 		componentDidUpdate() {  
+			console.log("Then it updated",this.state.text) 
 			this.viewer()
 			this.editor()  
 			this.console() 
