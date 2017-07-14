@@ -36105,7 +36105,7 @@ module.exports = function (_React$Component) {
       , linux = !android && !sailfish && !tizen && !webos && /linux/i.test(ua)
       , edgeVersion = getFirstMatch(/edge\/(\d+(\.\d+)?)/i)
       , versionIdentifier = getFirstMatch(/version\/(\d+(\.\d+)?)/i)
-      , tablet = /tablet/i.test(ua)
+      , tablet = /tablet/i.test(ua) && !/tablet pc/i.test(ua)
       , mobile = !tablet && /[^-]mobi/i.test(ua)
       , xbox = /xbox/i.test(ua)
       , result
@@ -76511,7 +76511,7 @@ var SplitPane = function (_React$Component) {
                         var height = node.getBoundingClientRect().height;
                         var current = split === 'vertical' ? event.touches[0].clientX : event.touches[0].clientY;
                         var size = split === 'vertical' ? width : height;
-                        var positionDelta = isPrimaryFirst ? position - current : current - position;
+                        var positionDelta = position - current;
                         if (step) {
                             if (Math.abs(positionDelta) < step) {
                                 return;
@@ -76520,6 +76520,7 @@ var SplitPane = function (_React$Component) {
                             // eslint-disable-next-line no-bitwise
                             positionDelta = ~~(positionDelta / step) * step;
                         }
+                        var sizeDelta = isPrimaryFirst ? positionDelta : -positionDelta;
 
                         var newMaxSize = maxSize;
                         if (maxSize !== undefined && maxSize <= 0) {
@@ -76531,23 +76532,22 @@ var SplitPane = function (_React$Component) {
                             }
                         }
 
-                        var newSize = size - positionDelta;
+                        var newSize = size - sizeDelta;
                         var newPosition = position - positionDelta;
 
                         if (newSize < minSize) {
                             newSize = minSize;
-                            newPosition = newSize;
                         } else if (maxSize !== undefined && newSize > newMaxSize) {
                             newSize = newMaxSize;
-                            newPosition = newSize;
+                        } else {
+                            this.setState({
+                                position: newPosition,
+                                resized: true
+                            });
                         }
 
                         if (onChange) onChange(newSize);
-                        this.setState({
-                            draggedSize: newSize,
-                            position: newPosition,
-                            resized: true
-                        });
+                        this.setState({ draggedSize: newSize });
                         ref.setState({ size: newSize });
                     }
                 }
