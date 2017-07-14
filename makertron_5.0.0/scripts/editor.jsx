@@ -39,13 +39,18 @@
 			}
 		  else { 
 				var result = parser.dump()
-				console.log( result ) 
 				this.sendMessage(result)	 
 			}
 		}
 		componentDidUpdate() {
 		}
+		componentWillMount() {	
+		}
 		render() {
+			if ( sessionStorage.text === undefined ) {
+				$.get( "pipe.scad", function( data ) { sessionStorage.text=data });
+			 console.log("yup") 
+			} 
     	return (
 				<div style={{height:'100%',width:'100%',position:'absolute'}}>
 					<button style={styles.button} type="button" id="update" onClick={this.refreshData}>Update</button>

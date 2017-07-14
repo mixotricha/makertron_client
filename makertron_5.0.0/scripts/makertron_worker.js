@@ -49,13 +49,10 @@ var csgProcess = (function () {
 
 	var postResult = function(result) { 
 			postLog("finished processing on server...") 
-			//result = JSON.parse(result) 
-	
 			postMessage({ type: 'result' , data: result })
 	}
 
 	var postLog = function(result) {
-		console.log(result)
 		postMessage( { type: 'log' , data: arguments[0] } )
 	}
 

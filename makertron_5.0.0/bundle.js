@@ -34665,7 +34665,6 @@ module.exports = function (_React$Component) {
 				this.sendMessage(false);
 			} else {
 				var result = parser.dump();
-				console.log(result);
 				this.sendMessage(result);
 			}
 		}
@@ -34673,8 +34672,17 @@ module.exports = function (_React$Component) {
 		key: 'componentDidUpdate',
 		value: function componentDidUpdate() {}
 	}, {
+		key: 'componentWillMount',
+		value: function componentWillMount() {}
+	}, {
 		key: 'render',
 		value: function render() {
+			if (sessionStorage.text === undefined) {
+				$.get("pipe.scad", function (data) {
+					sessionStorage.text = data;
+				});
+				console.log("yup");
+			}
 			return _react2.default.createElement(
 				'div',
 				{ style: { height: '100%', width: '100%', position: 'absolute' } },
@@ -35954,20 +35962,17 @@ module.exports = function (_React$Component) {
 			    data,
 			    data_length;
 			var geoBufferLength = geoBuffer.length - 1;
-			//var color = new THREE.Color();
-			//color.setRGB( 1.0, 0.0, 0.0 );
-			for (i = 0; i < geoBufferLength; i += 12) {
-				//normals.push( geoBuffer[i+0] , geoBuffer[i+1] , geoBuffer[i+2] ) 
-				vertices.push(geoBuffer[i + 3], geoBuffer[i + 5], geoBuffer[i + 4], geoBuffer[i + 6], geoBuffer[i + 8], geoBuffer[i + 7], geoBuffer[i + 9], geoBuffer[i + 11], geoBuffer[i + 10]);
-				//colors.push( color , color , color , color , color , color , color , color , color )
+
+			// No normals 
+			//0,2,1,3,5,4,6,8,7
+			//a,b,c,a,b,c,a,b,c
+
+			for (i = 0; i < geoBufferLength; i += 9) {
+				vertices.push(geoBuffer[i + 0], geoBuffer[i + 2], geoBuffer[i + 1], geoBuffer[i + 3], geoBuffer[i + 5], geoBuffer[i + 4], geoBuffer[i + 6], geoBuffer[i + 8], geoBuffer[i + 7]);
 			}
-			//normals =  new Float32Array(normals)
 			vertices = new Float32Array(vertices);
-			//colors =  new Float32Array(colors)
 			var geometry = new THREE.BufferGeometry();
-			//geometry.addAttribute( 'normal', new THREE.BufferAttribute( normals, 3 ) );
 			geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3));
-			//geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
 			geometry.computeBoundingSphere();
 			geometry.computeVertexNormals();
 

@@ -16,5 +16,5 @@
 // 
 // ==========================================================
 
-CONFIG_DATA = { "SERVER_ADDRESS" : "http://localhost" , "SERVER_PATH":"localhost/" , "PORT" : "3000"};
+CONFIG_DATA = { "SERVER_ADDRESS" : "http://makertron.io" , "SERVER_PATH":"makertron.io/" , "PORT" : "3000"};
   
