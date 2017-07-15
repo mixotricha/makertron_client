@@ -6,6 +6,8 @@
 
 	import React from 'react';
 	import ReactDOM from 'react-dom';
+	import $ from "jquery";
+
 	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider,DataTable , TableHeader} from 'react-mdl';
 	
 	import styles from '../resource/styles/style.js'  
@@ -72,9 +74,9 @@
 		onEnter(event) {	// updata data
 			console.log("We are in here") 
 		}
-		onChange(text) {
-			this.state.text = text;  
+		onChange(text) {  
 			sessionStorage.text = text
+			//this.state.text = text;
 		}
 		componentDidUpdate() {
 			sessionStorage.text = this.props.text 

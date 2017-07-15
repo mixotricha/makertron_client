@@ -4,21 +4,22 @@
 
 	'use strict'
 
-	sessionStorage.server_address  = CONFIG_DATA.SERVER_ADDRESS + ":" + CONFIG_DATA.PORT
-	sessionStorage.root_doc = CONFIG_DATA.SERVER_PATH
-	
-	var ee = new EventEmitter()
+	import config from '../scripts/config.js'
 
+	//sessionStorage.server_address  = config.CONFIG_DATA.SERVER_ADDRESS + ":" + config.CONFIG_DATA.PORT
+	//sessionStorage.root_doc = config.CONFIG_DATA.SERVER_PATH
+	
 	import React from 'react'
 	import ReactDOM from 'react-dom'	
+	import $ from "jquery";
 
 	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider} from 'react-mdl';	
 
 	import SplitPane from 'react-split-pane' 
 
 	import styles from '../resource/styles/style.js' 
-	import shared from '../resource/styles/shared.js' 
-
+	import shared from '../resource/styles/shared.js'
+ 
 	import ThreeComponent  from './three.jsx';  
 	import EditorComponent from './editor.jsx'; 	
 	import ConsoleComponent from './console.jsx'; 
@@ -166,6 +167,7 @@
     	this.state = { result: [] , log: "" , text: "" , component: false };
 			this.updateScene = this.updateScene.bind(this);
 			this.handleDrag = this.handleDrag.bind(this)	
+			this.updateDimensions = this.updateDimensions.bind(this) 
   	}
  		updateScene(result,text) {
 			var _this = this
@@ -190,7 +192,12 @@
 			return (<Tools patronus={this}/>)
 		} 
 		editor() { 
-			return (<EditorComponent patronus={this} text={this.state.text}/>)
+			if ( sessionStorage.text === undefined ) { 
+				return (<EditorComponent patronus={this} text={this.state.text}/>)
+			}
+			else { 
+				return (<EditorComponent patronus={this} text={sessionStorage.text}/>)
+			}
 		}
 		console() { 	 
 			return (<ConsoleComponent patronus={this} data={this.state.log} />)		
@@ -198,20 +205,24 @@
 		viewer() { 	 
 			return (<ThreeComponent patronus={this} data={this.state.result} />)		
 		}
-		componentWillMount() {
-			console.log( "to here" ); 
+		updateDimensions() { 
+			this.setState({component:true})
+		}
+		componentWillMount() { 
 			var _this = this 			
 			if ( sessionStorage.text === undefined ) {
-				$.get( "pipe.scad", function( data ) { 	
+				$.get( "pipe.scad", function( data ) { 
+					console.log("taking from file") 	
 					_this.setState({text:data})
 				});
 			} 			 
 		}
-		componentDidMount() {}
+		componentDidMount() {
+			window.addEventListener("resize", this.updateDimensions);
+		}
   	componentWillUnmount() {
 		}
 		componentDidUpdate() {  
-			console.log("Then it updated",this.state.text) 
 			this.viewer()
 			this.editor()  
 			this.console() 

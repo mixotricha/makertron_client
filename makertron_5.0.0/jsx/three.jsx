@@ -6,6 +6,7 @@
 
 	import React from 'react';
 	import ReactDOM from 'react-dom';
+	import THREE from '../scripts/three/three.js'
 
 	var dark_primary_color  = "#303F9F" 
 	var primary_width = '95vw' 
