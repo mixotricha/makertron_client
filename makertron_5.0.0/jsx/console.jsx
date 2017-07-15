@@ -8,8 +8,8 @@
 	import ReactDOM from 'react-dom';
 	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider,DataTable , TableHeader} from 'react-mdl';
 
-	import styles from './style.js' 
-	import shared from './shared.js' 
+	import styles from '../resource/styles/style.js' 
+	import shared from '../resource/styles/shared.js' 
 
 	import brace from 'brace' 
 	import AceEditor from 'react-ace'

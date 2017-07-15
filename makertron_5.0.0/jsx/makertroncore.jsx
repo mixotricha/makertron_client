@@ -16,12 +16,11 @@
 
 	import SplitPane from 'react-split-pane' 
 
-	import styles from './style.js' 
-	import shared from './shared.js' 
+	import styles from '../resource/styles/style.js' 
+	import shared from '../resource/styles/shared.js' 
 
 	import ThreeComponent  from './three.jsx';  
 	import EditorComponent from './editor.jsx'; 	
-	//import WidgetComponent from './widgets.jsx'; 
 	import ConsoleComponent from './console.jsx'; 
 
 	import 'react-mdl/extra/material.js';

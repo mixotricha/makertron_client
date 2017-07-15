@@ -1,4 +1,4 @@
 
 
-import './scripts/makertroncore.jsx';
+import './jsx/makertroncore.jsx';
 
