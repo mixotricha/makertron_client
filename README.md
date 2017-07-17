@@ -1,3 +1,4 @@
+
 <h1>General Over View</h1>
 
 The Makertron is a constructive solids engine that aims to fill the gap between traditional 'UI' driven cad tools and specification driven manufacturing environments. It features a decoupled philosophy where the constructive geometry server and the client are only loosely coupled. 
@@ -8,6 +9,7 @@ This is in sharp contrast to the OpenSCAD project design where the interface and
 
 The Makertron has been developed because we simply have not been able to find a solid platform for constructive geometry generation and we realize that others are also in the same boat :) 
 
+
 <h2>Makertron Server</h2> 
 
 The Makertron server supports its own internal geometry engine based on a brep representation. We have spent considerable time testing various alternate geometry engines and exploring the topology problems inherient in providing verifable water tight consistent meshes at scale and speed. 
@@ -17,11 +19,18 @@ provides just the right balance between speed and quality and is preferabble to 
 
 One of the goals of the Makertron design philosphy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instanation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. You can run as many cores of the server as you want. Have as many different conversations with it as you want. Split your constructive geometry problems up how you want. 
 
-This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. The OpenSCAD parser while supporting an excellent though in some areas somewhat problematic CSG language is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards. It is our opinion that this effort has stalled and something new needed to be developed to push constructive idea forwards a bit more. A few good efforts are being made at this. PLasM. ImplicitCAD. OpenJSCAD. However none of them quite achieved what we needed. Though it is quite possible they may do so in the future. 
+This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. The OpenSCAD parser while supporting an excellent though in some areas somewhat problematic CSG language is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this. 
 
+<li>PLasM</li>
+<li>ImplicitCAD</li>
+<li>OpenJSCAD</li>
+<li>TinkerCAD</li>
+
+However none of them quite achieved what we needed. Though it is quite possible they may do so in the future.
+ 
 <h2>Makertron Client</h2> 
 
-The Makertron Client is a demonstration interface written in react using Three.js to display generated geometry. One of the goals of the Makertron design philosophy was to 'decouple' the client interface from the geometry engine. 
+The Makertron Client is a demonstration interface written in <a href="https://facebook.github.io/react/">ReactJS</a> using <a href="Three.js.org">Three.js</a> to display generated geometry. One of the goals of the Makertron design philosophy was to 'decouple' the client interface from the geometry engine leaving you free to build a platform that meets whatever specific specialised requirements you have. 
 
 The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 90% of the OpenSCAD language specification is now supported and we are in the robustnes and compatability testing phase. 
 
@@ -48,8 +57,47 @@ The design goal is that with the Makertron client and server code you can develo
 
 As Makertron develops it will gain the ability to manage complex assembly and production tasks from the start of the design pipe lien all the way through to manufacturing. This will include quality operations on geometry. Easy connecticity with the internet of things. All of the features that we should expect from any preformant 'modern' language. Because that is what the Makertron is. 
 
-<h2> Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. It in turn is based on other free software and it could not exist without the beautiful and brilliant contributions of others. Thank you for making so much possible. 
-</h2> 
+
+<h2>How Do I Build It?</h2>
+All of the core components are currently in docker images. 
+
+This should give you a running server and client :
+
+# To install the client 
+
+1. git clone https://github.com/mixotricha/makertron_client/tree/master/makertron_5.0.0 
+2. cd xxx/makertron_5.0.0/scripts 
+3. 
+
+	<editor> config.js
+	Change "SERVER_ADDRESS" : "http://makertron.io" to point to your target server and "SERVER_PATH":"makertron.io/" to point to your target server + "/"
+and change "PORT" : "3000" to point to the port on your target server. 
+
+	*If you wish to just test the client you do not need to install the server or change the SERVER_ADDRESS,SERVER_PATH or PORT* 
+
+3. sudo docker build -t client . 
+4. sudo docker run -d --name client -p 80:80 client 
+
+# To install the server 
+
+1. 1. git clone https://github.com/mixotricha/makertron_client/tree/master/makertron_server
+2. cd xxx/makertron_server_5.0.0 
+3. sudo docker build -t server . 
+4. sudo docker run -d --name server -p 3000:3000 server 
+
+With both docker instances up and the config of the client set correctly you should now be able to access the server with the client. 
+
+# Building the BREP binary 
+
+More to come on this. Still writing the documentation for it. 
+
+<h2>License</h2>
+ Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. It in turn is based on other free software and it could not exist without the beautiful and brilliant contributions of others. Thank you for making so much possible. 
+
+<li>OpenCascade<li>
+<li>ReactJS</li>
+<li>NodeJS</li> 
+
 
 <h4>Lastly. To qoute Keith Fenner, 'Git Er Done' ... :p</h4>
 
