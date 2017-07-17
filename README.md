@@ -27,7 +27,7 @@ One of the goals of the Makertron design philosophy is to have one clear clean r
 <li>Run as many cores of the server as you want.</li>
 <li>Split your constructive geometry problems up how you want.</li>
 <li>Interact with other systems and generate your constructive geometry code relative to those systems</li> 
-
+</br>
 
 This stands in contrast to OpenSCAD client model which features a plethora of complex rendering tricks to avoid creating geometry ( <a href="http://www.nigels.com/research/egsggh98.pdf">GoldFeather</a>) in order to try and manage the speed/quality challenge that all constructive geometry engines must face. 
 
