@@ -15,28 +15,32 @@ The Makertron server supports its own internal geometry engine based on a brep r
 We have concluded that the <a href="https://www.opencascade.com/doc/occt-6.7.0/overview/html/occt_brep_format.html">BREP</a> representation 
 provides just the right balance between speed and quality and is preferabble to the infinite precision solution provided by <a href="http://www.cgal.org/">CGAL</a> 
 
-One of the goals of the Makertron design philosphy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instanation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. You can run as many cores of the server as you want. Have as many different conversations as you want. 
+One of the goals of the Makertron design philosphy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instanation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. You can run as many cores of the server as you want. Have as many different conversations with it as you want. Split your constructive geometry problems up how you want. 
 
-This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. It is our opinion that this effort has stalled and something new needed to be developed to push constructive geometry forwards. A few good efforts are being made at this. PLasM. ImplicitCAD. OpenJSCAD. However none of them quite achieved what we needed. Though it is quite possible they may do so in the future. 
+This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. The OpenSCAD parser while supporting an excellent though in some areas somewhat problematic CSG language is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards. It is our opinion that this effort has stalled and something new needed to be developed to push constructive idea forwards a bit more. A few good efforts are being made at this. PLasM. ImplicitCAD. OpenJSCAD. However none of them quite achieved what we needed. Though it is quite possible they may do so in the future. 
 
 <h2>Makertron Client</h2> 
 
 The Makertron Client is a demonstration interface written in react using Three.js to display generated geometry. One of the goals of the Makertron design philosophy was to 'decouple' the client interface from the geometry engine. 
 
-The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. 
+The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 90% of the OpenSCAD language specification is now supported and we are in the robustnes and compatability testing phase. 
 
-The demonstration client has been developed in react and uses three.js as the final geometry target. The Makertron architecture makes the following possible: 
+As stated above critical problems have been solved in all the core areas and we have satisfied ourselves that this was the right way to go. 
 
-<li>Clustering / Paralleisation of cosntructive geometry becomes possible</li> 
-<li>Interaction with other parts of complex manufacturing pipeline becomes possible. Sensors. Databases. Physics systems</li> 
-<li>Custimisation of the client becomes possible. Specific interfaces for logistics manufacturing and assembly tasks can be developed</li> 
-<li>Procedural parametric interfaces that push back through UI elements can 'push' back to the target constructive geometry language</li>
+The demonstration client has been developed in react and uses three.js as the final geometry target. We are awaiting some new browser features that will improve the web based client considerably. 
+
+The Makertron architecture makes the following possible: 
+
+<li>Clustering / Paralleisation of cosntructive geometry.</li> 
+<li>Interaction with other parts of complex manufacturing pipeline becomes possible. Sensors. Databases. Physics systems.</li> 
+<li>Custimisation of the client becomes possible. Specific interfaces for logistics manufacturing and assembly tasks can be developed.</li> 
+<li>Procedural parametric interfaces that push back through UI elements can 'push' back to the target constructive geometry language.</li>
 
 <h2>What Are You Using It For?</h2>
 
-Because we have things in the real world we actually want to build. The computational geometry problem is an annoying and frustrating obstruction in our way that we intend to solve. Rocket Engines. Bicycle Frames. Chess Pieces. Tobaggans. Pipe Flanges. All the things we want to build. We need this tool. 
+We have things in the real world we actually want to build. The computational geometry problem is an annoying and frustrating obstruction in our way that we intend to solve so that we can move on to the business of building things for ourselves and others. Rocket Engines. Bicycle Frames. Chess Pieces. Tobaggans. Pipe Flanges. You name it. All the things we want to build. We need this tool! 
 
-If we had known how difficult it was and that no decent solutions existed we probably would have found something else to do with the past 5? years of our life. 
+<i>If we had known how difficult it was and that no decent solutions existed we probably would have found something else to do with the past 5? years of our life.</i> 
 
 <h2>Desired Outcome</h2> 
 
