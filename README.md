@@ -22,11 +22,14 @@ The Makertron server supports its own internal geometry engine based on a BREP r
 We have concluded that the <a href="https://www.opencascade.com/doc/occt-6.7.0/overview/html/occt_brep_format.html">BREP</a> representation 
 provides just the right balance between speed and quality and is preferable to the infinite precision solution provided by <a href="http://www.cgal.org/">CGAL</a> 
 
-One of the goals of the Makertron design philosophy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instantiation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. You can run as many cores of the server as you want. Have as many different conversations with it as you want. Split your constructive geometry problems up how you want. 
+One of the goals of the Makertron design philosophy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instantiation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. 
+
+<li>Run as many cores of the server as you want.</li>
+<li>Split your constructive geometry problems up how you want.</li>
+<li>Interact with other systems and generate your constructive geometry code relative to those systems</li> 
 
 This stands in contrast to OpenSCAD client model which features a plethora of complex rendering tricks in order to try and manage the speed/quality challenge. The whole lot is glued together in a tight complicated blob.  The OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards from that interface. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this. 
 
- 
 <h2>Makertron Client</h2> 
 
 The Makertron Client is a demonstration interface written in <a href="https://facebook.github.io/react/">ReactJS</a> using <a href="Three.js.org">Three.js</a> to display generated geometry. One of the goals of the Makertron design philosophy was to 'decouple' the client interface from the geometry engine leaving you free to build a platform that meets whatever specific specialised requirements you have. 
