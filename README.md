@@ -19,14 +19,14 @@ provides just the right balance between speed and quality and is preferabble to 
 
 One of the goals of the Makertron design philosphy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instanation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. You can run as many cores of the server as you want. Have as many different conversations with it as you want. Split your constructive geometry problems up how you want. 
 
-This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. The OpenSCAD parser while supporting an excellent though in some areas somewhat problematic CSG language is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this. 
+This stands in contrast to OpenSCAD client model which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. The whole lot is glued together in a tight complicated blob.  The OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards from that interface. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this. 
 
-<li>PLasM</li>
-<li>ImplicitCAD</li>
 <li>OpenJSCAD</li>
-<li>TinkerCAD</li>
+<li>ImplicitCAD</li>
 
-However none of them quite achieved what we needed. Though it is quite possible they may do so in the future.
+The OpenJSCAD from what we can tell has also stalled and perhaps most importantly the engine is a pure JS implementation with all the floating point problems ( leaks ) that such an engine will bring. 
+
+We are proposing an alternative solution that does the constructive geometry operations on the server side. 
  
 <h2>Makertron Client</h2> 
 
