@@ -24261,7 +24261,7 @@ module.exports = {
 "use strict";
 
 
-var _small, _main, _editor, _console;
+var _main, _editor, _console;
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -24298,13 +24298,58 @@ module.exports = {
 										'position': 'relative'
 					},
 
-					small: (_small = {
+					small: {
 										'borderRadius': '3px',
 										'borderStyle': 'solid',
 										'padding': '4px',
 										'marginLeft': '4px',
-										'marginRight': '4px'
-					}, _defineProperty(_small, 'marginRight', '0px'), _defineProperty(_small, 'marginBottom', '4px'), _defineProperty(_small, 'backgroundColor', '#303F9F'), _defineProperty(_small, 'borderColor', '#FFFFFF'), _defineProperty(_small, 'borderWidth', '1px'), _defineProperty(_small, 'width', secondary_width), _defineProperty(_small, 'height', '5vh'), _defineProperty(_small, 'position', 'relative'), _small),
+										'marginRight': '4px',
+										'marginBottom': '0px',
+										'backgroundColor': '#303F9F',
+										'borderColor': '#FFFFFF',
+										'borderWidth': '1px',
+										'width': secondary_width,
+										'height': '5vh',
+										'position': 'relative'
+					},
+
+					small_no_margin: {
+										'borderRadius': '3px',
+										'borderStyle': 'solid',
+										'padding': '0px',
+										'margin': '4px',
+										'backgroundColor': '#303F9F',
+										'borderColor': '#FFFFFF',
+										'borderWidth': '1px',
+										'width': secondary_width,
+										'height': '5vh',
+										'position': 'relative'
+					},
+
+					logo: {
+										'padding': '18px',
+										'margin': '0px',
+										'fontFamily': "EngineerHand",
+										'fontSize': '30px',
+										'fontWeight': 'Bold',
+										'color': '#303F9F',
+										'textAlign': 'center',
+										'verticalAlign': 'middle',
+										'width': '15vw',
+										'backgroundColor': 'white'
+
+					},
+
+					about: {
+										'padding': '0px',
+										'margin': '0px',
+										'fontFamily': "EngineerHand",
+										'fontSize': '30px',
+										'fontWeight': 'Bold',
+										'color': '#303F9F',
+										'textAlign': 'right'
+
+					},
 
 					main: (_main = {
 										'borderRadius': '3px',
@@ -24333,6 +24378,8 @@ module.exports = {
 					}, _defineProperty(_console, 'marginRight', '0px'), _defineProperty(_console, 'marginBottom', '4px'), _defineProperty(_console, 'backgroundColor', '#303F9F'), _defineProperty(_console, 'borderColor', '#FFFFFF'), _defineProperty(_console, 'borderWidth', '1px'), _defineProperty(_console, 'width', secondary_width), _defineProperty(_console, 'height', '50vh'), _console),
 
 					button: {
+										'fontFamily': "EngineerHand",
+										'fontSize': '20px',
 										'borderRadius': '3px',
 										'borderStyle': 'solid',
 										'padding': '4px',
@@ -24340,15 +24387,14 @@ module.exports = {
 										'backgroundColor': '#303F9F',
 										'borderColor': '#FFFFFF',
 										'borderWidth': '1px',
-										'height': '3vh',
+										'height': '4vh',
 										'position': 'relative'
 					},
 
 					ace_editor: {
-										width: '92vw',
-										height: '95%',
-										position: 'absolute'
-
+										'height': '80%',
+										'position': 'absolute',
+										'opacity': '0.5'
 					}
 };
 
@@ -44338,7 +44384,7 @@ var makeId = function makeId() {
 // Handle user login and hook up editor if successful 
 // ------------------------------------------------------
 
-var Login = function (_React$Component) {
+var _Login = function (_React$Component) {
 	_inherits(Login, _React$Component);
 
 	function Login(props) {
@@ -44375,66 +44421,30 @@ var Login = function (_React$Component) {
 		key: 'componentWillMount',
 		value: function componentWillMount() {}
 	}, {
+		key: 'about',
+		value: function about() {
+			var url = 'https://github.com/mixotricha/makertron_client';
+			window.open(url);
+		}
+	}, {
 		key: 'render',
 		value: function render() {
 			return _react2.default.createElement(
-				'div',
-				{ className: 'row' },
+				_reactMdl.Grid,
+				{ className: 'demo-grid-ruler', style: _style2.default.small_no_margin },
 				_react2.default.createElement(
-					'div',
-					{ className: 'col-xs-5' },
-					_react2.default.createElement(
-						'p',
-						null,
-						'stuff'
-					)
+					_reactMdl.Cell,
+					{ col: 2, style: _style2.default.logo },
+					'MAKERTRON'
 				),
+				_react2.default.createElement(_reactMdl.Cell, { col: 8 }),
 				_react2.default.createElement(
-					'div',
-					{ className: 'col-xs-2' },
-					_react2.default.createElement(_reactMdl.Textfield, {
-						style: _style2.default.button,
-						label: '',
-						id: 'username',
-						type: 'text',
-						onChange: this.onUsernameChange,
-						placeholder: 'username' })
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-xs-2' },
-					_react2.default.createElement(_reactMdl.Textfield, {
-						style: _style2.default.button,
-						label: '', id: 'password',
-						type: 'password',
-						onChange: this.onPasswordChange,
-						placeholder: 'password' })
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-xs-1' },
+					_reactMdl.Cell,
+					{ col: 2, style: _style2.default.about },
 					_react2.default.createElement(
 						'button',
-						{ style: _style2.default.button, type: 'button', id: 'login', onClick: this.onLoginClick },
-						'Login'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-xs-1' },
-					_react2.default.createElement(
-						'button',
-						{ style: _style2.default.button, type: 'button', id: 'logout', onClick: this.onLogoutClick },
-						'Logout'
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'col-xs-1' },
-					_react2.default.createElement(
-						'button',
-						{ style: _style2.default.button, type: 'button', id: 'register', onClick: this.onRegisterClick },
-						'Register'
+						{ style: _style2.default.button, type: 'button', id: 'about', onClick: this.about },
+						'About'
 					)
 				)
 			);
@@ -44632,6 +44642,11 @@ var Start = function (_React$Component3) {
 			return _react2.default.createElement(_three2.default, { patronus: this, data: this.state.result });
 		}
 	}, {
+		key: 'Login',
+		value: function Login() {
+			return _react2.default.createElement(_Login, null);
+		}
+	}, {
 		key: 'updateDimensions',
 		value: function updateDimensions() {
 			this.setState({ component: true });
@@ -44668,6 +44683,11 @@ var Start = function (_React$Component3) {
 			return _react2.default.createElement(
 				'div',
 				{ style: _style2.default.whole_page },
+				_react2.default.createElement(
+					'div',
+					null,
+					this.Login()
+				),
 				_react2.default.createElement(
 					_reactSplitPane2.default,
 					{ split: 'vertical', primary: 'first', defaultSize: (0, _jquery2.default)(window).width() - 600 },
@@ -45027,7 +45047,7 @@ var TextWidget = function (_React$Component2) {
 				value: this.props.text,
 				onChange: this.onChange,
 				editorProps: { $blockScrolling: Infinity },
-				style: { height: '80%', position: 'absolute', opacity: '0.5' },
+				style: _style2.default.ace_editor,
 				mode: 'text',
 				theme: 'eclipse'
 			});
@@ -45427,8 +45447,11 @@ module.exports = function (_React$Component) {
 				shininess: 1,
 				side: _three2.default.DoubleSide
 			}), new _three2.default.MeshBasicMaterial({ color: 0x000000, shading: _three2.default.FlatShading, wireframe: true, transparent: true })];
-
 			var obj = _three2.default.SceneUtils.createMultiMaterialObject(geometry, materials);
+
+			//var edges = new THREE.EdgesGeometry( geometry );
+			//var lines = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff , linewidth: 2 } ) );
+
 			return obj;
 		}
 	}, {
@@ -45486,7 +45509,7 @@ module.exports = function (_React$Component) {
 		value: function render() {
 			return _react2.default.createElement('div', {
 				id: 'three_canvas',
-				style: { 'width': canvas_width, 'height': '95vh', 'background': dark_primary_color },
+				style: { 'width': canvas_width, 'height': '88vh', 'background': dark_primary_color },
 				onMouseMove: this.onMouseMove,
 				onMouseDown: this.onMouseDown,
 				onMouseUp: this.onMouseUp,

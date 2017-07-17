@@ -273,18 +273,18 @@
 			geometry.computeBoundingSphere()			
 			geometry.computeVertexNormals()
 
-			//var materials = [ new THREE.MeshPhongMaterial({ color: 0x48473e, 
-			//																								 specular: 0xffffff , 
-			//																								 shininess: 1, 
-			//																								 side: THREE.DoubleSide, 
-			//																								  }),
-			//								  new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true } )]
-			//var obj = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
+			var materials = [ new THREE.MeshPhongMaterial({ color: 0x48473e, 
+																											 specular: 0xffffff , 
+																											 shininess: 1, 
+																											 side: THREE.DoubleSide, 
+																											  }),
+											  new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true } )]
+			var obj = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
 
-			var edges = new THREE.EdgesGeometry( geometry );
-			var lines = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff , linewidth: 2 } ) );
+			//var edges = new THREE.EdgesGeometry( geometry );
+			//var lines = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff , linewidth: 2 } ) );
 			
-			return lines
+			return obj
 		}
 
 		update_scene() { 	
