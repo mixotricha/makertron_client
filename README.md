@@ -15,9 +15,9 @@ The Makertron server supports its own internal geometry engine based on a brep r
 We have concluded that the <a href="https://www.opencascade.com/doc/occt-6.7.0/overview/html/occt_brep_format.html">BREP</a> representation 
 provides just the right balance between speed and quality and is preferabble to the infinite precision solution provided by <a href="http://www.cgal.org/">CGAL</a> 
 
-One of the goals of the Makertron design philosphy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instanation of the BREP equations through to output to the requesting client while keeping the server and client loosely coupled.
+One of the goals of the Makertron design philosphy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instanation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. You can run as many cores of the server as you want. Have as many different conversations as you want. 
 
-This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. It is our opinion that this effort has stalled and something new needed to be developed to push constructive geometry forwards. 
+This stands in contrast to OpenSCAD which features a plenthora of complex rendering tricks in order to try and manage the speed/quality challenge. It is our opinion that this effort has stalled and something new needed to be developed to push constructive geometry forwards. A few good efforts are being made at this. PLasM. ImplicitCAD. OpenJSCAD. However none of them quite achieved what we needed. Though it is quite possible they may do so in the future. 
 
 <h2>Makertron Client</h2> 
 
