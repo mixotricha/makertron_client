@@ -28,22 +28,26 @@ The Makertron engine supports a sophisticated transpiler that currently supports
 The demonstration client has been developed in react and uses three.js as the final geometry target. The Makertron architecture makes the following possible: 
 
 <li>Clustering / Paralleisation of cosntructive geometry becomes possible</li> 
-<li>Interaction with other parts of complex manufacturing pipeline becomes possible. Sensors. Databases. Physics systems.</li> 
-<li>Addition / Custimisation of the client becomes possible. Specific interfaces for logistics manufacturing and assembly tasks can be developed.</li> 
+<li>Interaction with other parts of complex manufacturing pipeline becomes possible. Sensors. Databases. Physics systems</li> 
+<li>Custimisation of the client becomes possible. Specific interfaces for logistics manufacturing and assembly tasks can be developed</li> 
 <li>Procedural parametric interfaces that push back through UI elements can 'push' back to the target constructive geometry language</li>
 
-<h3>What Are You Using It For?</h3>
+<h2>What Are You Using It For?</h2>
 
-As manufacturing workflows and processes look for tighter integration and specification driven design paths the notion of constructive solids design has again become worthy of serious consideration. Some excellent work has been towards achieving this goal but the balance between quality of mesh generation speed of generation and modualirsation has not yet been quite achieved. We have things in the real world we actually want to build. The computational Geometry problem is an annoying and frustrating obstruction in our way that we intend to solve. Rocket Engines. Bicycle Frames. Chess Pieces. Tobaggans. Pipe Flanges. All the things we want to build. 
+Because we have things in the real world we actually want to build. The computational geometry problem is an annoying and frustrating obstruction in our way that we intend to solve. Rocket Engines. Bicycle Frames. Chess Pieces. Tobaggans. Pipe Flanges. All the things we want to build. We need this tool. 
 
-<h3>Desired Outcome</h3> 
+If we had known how difficult it was and that no decent solutions existed we probably would have found something else to do with the past 5? years of our life. 
 
-The design goal is that with the Makertron client and server code you can develop  complex constructive geometry at ‘scale’ and at ‘speed’ in a formal language. This is a step towards specification driven cad design. Because of the nature of this design multi core processing and paralleisation becomes possible. 
+<h2>Desired Outcome</h2> 
 
-It aims to improve on other existing constructive geometry tools such as OpenSCAD. 
+The design goal is that with the Makertron client and server code you can develop complex constructive geometry at ‘scale’ and at ‘speed’ in a formal language. This is a step towards specification driven cad design. Because of the nature of this design multi core processing and paralleisation becomes possible. 
 
 As Makertron develops it will gain the ability to manage complex assembly and production tasks from the start of the design pipe lien all the way through to manufacturing. This will include quality operations on geometry. Easy connecticity with the internet of things. All of the features that we should expect from any preformant 'modern' language. Because that is what the Makertron is. 
 
-To qoute Keith Fenner, 'Git Er Done' ... :p 
+<h2> Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. It in turn is based on other free software and it could not exist without the beautiful and brilliant contributions of others. Thank you for making so much possible. 
+</h2> 
+
+<h4>Lastly. To qoute Keith Fenner, 'Git Er Done' ... :p</h4>
+
 
 
