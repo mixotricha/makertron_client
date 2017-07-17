@@ -28,7 +28,10 @@ One of the goals of the Makertron design philosophy is to have one clear clean r
 <li>Split your constructive geometry problems up how you want.</li>
 <li>Interact with other systems and generate your constructive geometry code relative to those systems</li> 
 
-This stands in contrast to OpenSCAD client model which features a plethora of complex rendering tricks in order to try and manage the speed/quality challenge. The whole lot is glued together in a tight complicated blob.  The OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards from that interface. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this. 
+
+This stands in contrast to OpenSCAD client model which features a plethora of complex rendering tricks to avoid creating geometry ( <a href="http://www.nigels.com/research/egsggh98.pdf">GoldFeather</a> in order to try and manage the speed/quality challenge that all constructive geometry engines must face. 
+
+The whole lot is glued together in a tight complicated blob.  The OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards from that interface. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this and they may improve in the future. 
 
 <h2>Makertron Client</h2> 
 
