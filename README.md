@@ -95,6 +95,5 @@ Makertron could not exist without the following beautiful and brilliant contribu
 
 Thank you for making so much that is wonderful possible.... 
 
-<h4>Lastly. To qoute Keith Fenner, 'Git Er Done' ... :p</h4>
 
 
