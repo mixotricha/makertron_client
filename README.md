@@ -22,12 +22,6 @@ One of the goals of the Makertron design philosophy is to have one clear clean r
 
 This stands in contrast to OpenSCAD client model which features a plethora of complex rendering tricks in order to try and manage the speed/quality challenge. The whole lot is glued together in a tight complicated blob.  The OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards from that interface. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. A few good efforts are being made at this. 
 
-<li>OpenJSCAD</li>
-<li>ImplicitCAD</li>
-
-The OpenJSCAD from what we can tell has also stalled and perhaps most importantly the engine is a pure JS implementation with all the floating point problems ( leaks ) that such an engine will bring. 
-
-We are proposing an alternative solution that does the constructive geometry operations on the server side. 
  
 <h2>Makertron Client</h2> 
 
@@ -54,7 +48,7 @@ We have things in the real world we actually want to build. The computational ge
 
 The design goal is that with the Makertron client and server code you can develop complex constructive geometry at ‘scale’ and at ‘speed’ in a formal language. This is a step towards specification driven cad design. Because of the nature of this design multi core processing and parallelisation becomes possible. 
 
-As Makertron develops it will gain the ability to manage complex assembly and production tasks from the start of the design pipe lien all the way through to manufacturing. This will include quality operations on geometry. Easy connectivity with the Internet of things. All of the features that we should expect from any pre formant 'modern' language. Because that is what the Makertron is. 
+As Makertron develops it will gain the ability to manage complex assembly and production tasks from the start of the design pipe line all the way through to manufacturing. This will include quality operations on geometry. Easy connectivity with the Internet of things. All of the features that we should expect from any pre formant 'modern' language. Because that is what the Makertron is. 
 
 
 <h2>How Do I Build It?</h2>
@@ -91,12 +85,15 @@ With both Docker client and server instances up and the config of the client set
 More to come on this. Still writing the documentation for it. 
 
 <h2>License</h2>
- Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. It in turn is based on other free software and it could not exist without the beautiful and brilliant contributions of others. Thank you for making so much possible. 
+ Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. 
 
-<li>OpenCascade<li>
-<li>ReactJS</li>
-<li>NodeJS</li> 
+Makertron could not exist without the following beautiful and brilliant contributions of others:
 
+	<li>OpenCascade</li>
+	<li>ReactJS</li>
+	<li>NodeJS</li>
+
+Thank you for making so much that is wonderful possible.... 
 
 <h4>Lastly. To qoute Keith Fenner, 'Git Er Done' ... :p</h4>
 
