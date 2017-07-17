@@ -27,10 +27,10 @@ The Makertron engine supports a sophisticated transpiler that currently supports
 
 The demonstration client has been developed in react and uses three.js as the final geometry target. The Makertron architecture makes the following possible: 
 
-<ul>Clustering / Paralleisation becomes possible</ul> 
-<ul>Interaction with other parts of complex manufacturing pipeline becomes possible</ul> 
-<ul>Addition / Custimisation of the client becomes possible</ul> 
-<ul>Procedural parametric interfaces that push back through UI elements can 'push' back to the target constructive geometry language</ul>
+<li>Clustering / Paralleisation of cosntructive geometry becomes possible</li> 
+<li>Interaction with other parts of complex manufacturing pipeline becomes possible. Sensors. Databases. Physics systems.</li> 
+<li>Addition / Custimisation of the client becomes possible. Specific interfaces for logistics manufacturing and assembly tasks can be developed.</li> 
+<li>Procedural parametric interfaces that push back through UI elements can 'push' back to the target constructive geometry language</li>
 
 <h3>What Are You Using It For?</h3>
 
