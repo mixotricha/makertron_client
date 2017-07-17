@@ -87,11 +87,11 @@ More to come on this. Still writing the documentation for it.
 <h2>License</h2>
  Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. 
 
-Makertron could not exist without the following beautiful and brilliant contributions of others:
+Makertron could not exist without the following beautiful and brilliant contributions of others: 
 
-	<li>OpenCascade</li>
-	<li>ReactJS</li>
-	<li>NodeJS</li>
+<li>OpenCascade</li>
+<li>ReactJS</li>
+<li>NodeJS</li>
 
 Thank you for making so much that is wonderful possible.... 
 
