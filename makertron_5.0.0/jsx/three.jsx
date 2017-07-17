@@ -273,15 +273,18 @@
 			geometry.computeBoundingSphere()			
 			geometry.computeVertexNormals()
 
-			var materials = [ new THREE.MeshPhongMaterial({ color: 0x48473e, 
-																											 specular: 0xffffff , 
-																											 shininess: 1, 
-																											 side: THREE.DoubleSide, 
-																											  }),
-											  new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true } )]
+			//var materials = [ new THREE.MeshPhongMaterial({ color: 0x48473e, 
+			//																								 specular: 0xffffff , 
+			//																								 shininess: 1, 
+			//																								 side: THREE.DoubleSide, 
+			//																								  }),
+			//								  new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true } )]
+			//var obj = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
 
-			var obj = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
-			return obj
+			var edges = new THREE.EdgesGeometry( geometry );
+			var lines = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff , linewidth: 2 } ) );
+			
+			return lines
 		}
 
 		update_scene() { 	
@@ -332,7 +335,7 @@
     	return (
       	<div 
 							id="three_canvas" 
-							style={{'width': canvas_width ,'height':'95vh','background':dark_primary_color}}  
+							style={{'width': canvas_width ,'height':'88vh','background':dark_primary_color}}  
 							onMouseMove={this.onMouseMove}
 							onMouseDown={this.onMouseDown}
 							onMouseUp={this.onMouseUp}

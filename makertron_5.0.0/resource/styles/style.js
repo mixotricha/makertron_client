@@ -37,8 +37,7 @@ module.exports = {
 						'padding'                       : '4px', 
 						'marginLeft'                   : '4px', 
 						'marginRight'                  : '4px', 
-						'marginRight'                  : '0px', 
-						'marginBottom'                 : '4px', 
+						'marginBottom'                 : '0px', 
 						'backgroundColor'              : '#303F9F',
 						'borderColor'                  : '#FFFFFF',
 						'borderWidth'                  : '1px' ,
@@ -46,6 +45,46 @@ module.exports = {
             'height'                        : '5vh',
 						'position'                      : 'relative'
          } , 
+
+	small_no_margin :  {
+	  				'borderRadius'                 : '3px',
+						'borderStyle'                  : 'solid',
+						'padding'                       : '0px', 
+						'margin'                       : '4px' , 	
+						'backgroundColor'              : '#303F9F',
+						'borderColor'                  : '#FFFFFF',
+						'borderWidth'                  : '1px' ,
+						'width'                         : secondary_width ,
+            'height'                        : '5vh',
+						'position'                      : 'relative'
+         } , 
+
+	logo : { 
+					'padding': '18px' ,
+					'margin' : '0px' ,  
+					'fontFamily': "EngineerHand",
+					'fontSize' : '30px' ,
+					'fontWeight' : 'Bold' , 
+					'color' : '#303F9F',
+					'textAlign' : 'center' , 
+					 'verticalAlign': 'middle',			 
+				 	'width' : '15vw',
+					'backgroundColor': 'white'
+			
+	}, 
+
+	about : { 
+					'padding': '0px' ,
+					'margin' : '0px' ,  
+					'fontFamily': "EngineerHand",
+					'fontSize' : '30px' ,
+					'fontWeight' : 'Bold' , 
+					'color' : '#303F9F',
+					'textAlign' : 'right'  
+					
+				
+	}, 
+
 
 	main :  {
 	  				'borderRadius'                 : '3px',
@@ -98,6 +137,8 @@ module.exports = {
          } , 
 
 	button :  {
+						'fontFamily': "EngineerHand",
+						'fontSize' : '20px' , 
 	  				'borderRadius'                 : '3px',
 						'borderStyle'                  : 'solid',
 						'padding'                      : '4px', 
@@ -105,16 +146,14 @@ module.exports = {
 						'backgroundColor'              : '#303F9F',
 						'borderColor'                  : '#FFFFFF',
 						'borderWidth'                  : '1px' ,
-				    'height'                        : '3vh',
+				    'height'                        : '4vh',
 						'position'                      : 'relative'
          },
 
 	ace_editor : {
-									width:'92vw',
-									height: '95%', 
-									position: 'absolute'
-									
-											
+								'height':'80%',
+								'position':'absolute',
+								'opacity':'0.5'
 							} 
 }
 

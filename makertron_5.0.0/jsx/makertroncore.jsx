@@ -55,31 +55,17 @@
 		onLogoutClick(event) {}
 		onRegisterClick(event) {}
 		componentWillMount() {}
+		about() {
+			var url = 'https://github.com/mixotricha/makertron_client' 
+			 window.open(url);
+		}
 		render() {
 		  return (
-				<div className="row">
-					<div className="col-xs-5"><p>stuff</p></div>
-					<div className="col-xs-2">
-						<Textfield 
-												style={styles.button} 
-												label="" 
-												id ="username" 
-												type="text" 
-												onChange={this.onUsernameChange} 
-												placeholder="username"/>
-						</div>
-					<div className="col-xs-2">
-						<Textfield 
-												style={styles.button} 
-												label="" id ="password" 
-												type="password" 
-												onChange={this.onPasswordChange} 
-												placeholder="password"/>
-						</div>
-					<div className="col-xs-1"><button style={styles.button} type="button" id="login" onClick={this.onLoginClick}>Login</button></div>
-					<div className="col-xs-1"><button style={styles.button} type="button" id="logout" onClick={this.onLogoutClick}>Logout</button></div>
-					<div className="col-xs-1"><button style={styles.button} type="button" id="register" onClick={this.onRegisterClick}>Register</button></div>				
-					</div>
+				 <Grid className="demo-grid-ruler" style={styles.small_no_margin}>
+					<Cell col={2} style={styles.logo}>MAKERTRON</Cell>
+					<Cell col={8}></Cell>
+					<Cell col={2} style={styles.about}><button style={styles.button} type="button" id="about" onClick={this.about}>About</button></Cell>
+					</Grid>
     	);
   	}
 	}
@@ -205,6 +191,9 @@
 		viewer() { 	 
 			return (<ThreeComponent patronus={this} data={this.state.result} />)		
 		}
+		Login() { 
+			return(<Login />)
+		}
 		updateDimensions() { 
 			this.setState({component:true})
 		}
@@ -230,6 +219,7 @@
   	render() {
     	return (
     		<div style={styles.whole_page}>
+					<div>{this.Login()}</div>
 					<SplitPane split="vertical"  primary="first" defaultSize={$(window).width()-600}>
       	  	<div>{this.viewer()}</div>
       	  	<SplitPane split="horizontal" onDragFinished={this.handleDrag} primary="first" defaultSize={300}>
