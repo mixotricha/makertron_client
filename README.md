@@ -34,9 +34,7 @@ The Makertron Client is a demonstration interface written in <a href="https://fa
 
 The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 90% of the OpenSCAD language specification is now supported and we are in the robustnes and compatability testing phase. 
 
-As stated above critical problems have been solved in all the core areas and we have satisfied ourselves that this was the right way to go. 
-
-The demonstration client has been developed in react and uses three.js as the final geometry target. We are awaiting some new browser features that will improve the web based client considerably. 
+We are awaiting some new browser features ( OffScreenCanvas ) that will improve the web based client considerably. 
 
 The Makertron architecture makes the following possible: 
 
@@ -59,7 +57,8 @@ As Makertron develops it will gain the ability to manage complex assembly and pr
 
 
 <h2>How Do I Build It?</h2>
-All of the core components are currently in docker images. 
+
+All of the core components are currently in docker images. We did because it greatly eases the distribution of the project as a whole and has made our deployment process a breeze. The following instructions assume you know what docker is. How to configure it and so on. 
 
 This should give you a running server and client :
 
@@ -68,24 +67,23 @@ This should give you a running server and client :
 1. git clone https://github.com/mixotricha/makertron_client/tree/master/makertron_5.0.0 
 2. cd xxx/makertron_5.0.0/scripts 
 3. 
+	1. <editor> config.js
+	2. Change "SERVER_ADDRESS" : "http://makertron.io" to point to your target server 
+	3. Change "SERVER_PATH":"makertron.io/" to point to your target server + "/"
+	4. change "PORT" : "3000" to point to the port on your target server. 
+5. sudo docker build -t client . 
+6. sudo docker run -d --name client -p 80:80 client 
 
-	<editor> config.js
-	Change "SERVER_ADDRESS" : "http://makertron.io" to point to your target server and "SERVER_PATH":"makertron.io/" to point to your target server + "/"
-and change "PORT" : "3000" to point to the port on your target server. 
-
-	*If you wish to just test the client you do not need to install the server or change the SERVER_ADDRESS,SERVER_PATH or PORT* 
-
-3. sudo docker build -t client . 
-4. sudo docker run -d --name client -p 80:80 client 
+	*If you wish to just test the client you can skip step 3 above and skip installing the server below*
 
 # To install the server 
 
-1. 1. git clone https://github.com/mixotricha/makertron_client/tree/master/makertron_server
+1. git clone https://github.com/mixotricha/makertron_client/tree/master/makertron_server
 2. cd xxx/makertron_server_5.0.0 
 3. sudo docker build -t server . 
 4. sudo docker run -d --name server -p 3000:3000 server 
 
-With both docker instances up and the config of the client set correctly you should now be able to access the server with the client. 
+With both docker client and server instances up and the config of the client set correctly you should now be able to access the server with the client. 
 
 # Building the BREP binary 
 
