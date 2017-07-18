@@ -65,7 +65,9 @@ As Makertron develops it will gain the ability to manage complex assembly and pr
 
 <h2>How Do I Build It?</h2>
 
-All of the core components are currently in Docker images. We did because it greatly eases the distribution of the project as a whole and has made our deployment process a breeze. The following instructions assume you know what Docker is. How to configure it and so on. 
+All of the core components are currently in Docker images. This greatly eases the deyployment of the project and means freedom from worrying about dependencies. The client is also configured for webpack so you can run it stand alone for development/testing but you will need to install the appropriate npms and support libraries. The same also applies to the server container. 
+
+The following instructions assume you know what Docker is. How to configure it and so on. 
 
 This should give you a running server and client :
 

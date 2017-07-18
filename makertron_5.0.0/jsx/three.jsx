@@ -273,18 +273,19 @@
 			geometry.computeBoundingSphere()			
 			geometry.computeVertexNormals()
 
-			var materials = [ new THREE.MeshPhongMaterial({ color: 0x48473e, 
-																											 specular: 0xffffff , 
-																											 shininess: 1, 
-																											 side: THREE.DoubleSide, 
-																											  }),
-											  new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true } )]
-			var obj = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
+			var msh = [] 
+			var material = new THREE.MeshPhongMaterial({ color: 0x303F9F,specular: 0xffffff , shininess: 1, side: THREE.DoubleSide })
+			msh.push( new THREE.Mesh( geometry, material ))
 
-			//var edges = new THREE.EdgesGeometry( geometry );
-			//var lines = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff , linewidth: 2 } ) );
-			
-			return obj
+			//var materials = [ new THREE.MeshPhongMaterial({ color: 0x48473e,specular: 0xffffff , shininess: 1, side: THREE.DoubleSide }),
+			//								  new THREE.MeshBasicMaterial({ color: 0x000000, shading: THREE.FlatShading, wireframe: true, transparent: true } )]
+			//var obj = THREE.SceneUtils.createMultiMaterialObject( geometry, materials );
+
+			var edges = new THREE.EdgesGeometry( geometry );
+			var lines = new THREE.LineSegments( edges, new THREE.LineBasicMaterial( { color: 0xffffff , linewidth: 2 } ) );
+			msh.push(lines) 
+
+			return msh
 		}
 
 		update_scene() { 	
@@ -316,7 +317,9 @@
 			this.scene.add( axisHelper );			
 
 			for ( i = 0; i < this.props.data.length; i++ ) { 
-				this.scene.add( this.createObject(JSON.parse(this.props.data[i])) ) 	
+				var msh =  this.createObject(JSON.parse(this.props.data[i])) 
+				this.scene.add( msh[0] ) 
+				this.scene.add( msh[1] )  	
 			}		
 		}
 
