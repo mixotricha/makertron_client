@@ -24377,9 +24377,11 @@ module.exports = {
 										'marginRight': '4px'
 					}, _defineProperty(_console, 'marginRight', '0px'), _defineProperty(_console, 'marginBottom', '4px'), _defineProperty(_console, 'backgroundColor', '#303F9F'), _defineProperty(_console, 'borderColor', '#FFFFFF'), _defineProperty(_console, 'borderWidth', '1px'), _defineProperty(_console, 'width', secondary_width), _defineProperty(_console, 'height', '50vh'), _console),
 
-					button: {
+					button: _defineProperty({
 										'fontFamily': "EngineerHand",
 										'fontSize': '20px',
+										'fontWeight': 'Bold',
+										'color': '#303F9F',
 										'borderRadius': '3px',
 										'borderStyle': 'solid',
 										'padding': '4px',
@@ -24389,12 +24391,12 @@ module.exports = {
 										'borderWidth': '1px',
 										'height': '4vh',
 										'position': 'relative'
-					},
+					}, 'backgroundColor', 'rgba(255, 255, 255, 0.6)'),
 
 					ace_editor: {
 										'height': '80%',
 										'position': 'absolute',
-										'opacity': '0.5'
+										'backgroundColor': 'rgba(255, 255, 255, 0.6)'
 					}
 };
 
@@ -44861,7 +44863,7 @@ var TextWidget = function (_React$Component2) {
 				value: this.props.data,
 				onChange: this.onChange,
 				editorProps: { $blockScrolling: Infinity },
-				style: { height: '80%', position: 'absolute', opacity: '0.5' },
+				style: _style2.default.ace_editor,
 				mode: 'text',
 				theme: 'eclipse'
 			});

@@ -139,6 +139,8 @@ module.exports = {
 	button :  {
 						'fontFamily': "EngineerHand",
 						'fontSize' : '20px' , 
+						'fontWeight' : 'Bold' , 
+					'color' : '#303F9F',
 	  				'borderRadius'                 : '3px',
 						'borderStyle'                  : 'solid',
 						'padding'                      : '4px', 
@@ -147,13 +149,14 @@ module.exports = {
 						'borderColor'                  : '#FFFFFF',
 						'borderWidth'                  : '1px' ,
 				    'height'                        : '4vh',
-						'position'                      : 'relative'
+						'position'                      : 'relative',
+						'backgroundColor': 'rgba(255, 255, 255, 0.6)'
          },
 
 	ace_editor : {
 								'height':'80%',
 								'position':'absolute',
-								'opacity':'0.5'
+								'backgroundColor': 'rgba(255, 255, 255, 0.6)'
 							} 
 }
 

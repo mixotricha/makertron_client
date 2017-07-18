@@ -76,7 +76,7 @@
 									value={this.props.data}
 									onChange={this.onChange}
 									editorProps={{$blockScrolling:Infinity}}
-									style={{height:'80%',position:'absolute',opacity:'0.5'}}
+									style={styles.ace_editor}
  									mode="text"
         					theme="eclipse"
  							/>
