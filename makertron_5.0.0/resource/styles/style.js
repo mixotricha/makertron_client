@@ -62,7 +62,7 @@ module.exports = {
 	logo : { 
 					'padding': '18px' ,
 					'margin' : '0px' ,  
-					'fontFamily': "EngineerHand",
+					'fontFamily': "din1451alt",
 					'fontSize' : '30px' ,
 					'fontWeight' : 'Bold' , 
 					'color' : '#303F9F',
@@ -76,7 +76,7 @@ module.exports = {
 	about : { 
 					'padding': '0px' ,
 					'margin' : '0px' ,  
-					'fontFamily': "EngineerHand",
+					'fontFamily': "din1451alt",
 					'fontSize' : '30px' ,
 					'fontWeight' : 'Bold' , 
 					'color' : '#303F9F',
@@ -137,13 +137,13 @@ module.exports = {
          } , 
 
 	button :  {
-						'fontFamily': "EngineerHand",
+						'fontFamily': "din1451alt",
 						'fontSize' : '20px' , 
 						'fontWeight' : 'Bold' , 
 					'color' : '#303F9F',
 	  				'borderRadius'                 : '3px',
 						'borderStyle'                  : 'solid',
-						'padding'                      : '4px', 
+						'padding'                      : '6px', 
 						'margin'                       : '4px' , 
 						'backgroundColor'              : '#303F9F',
 						'borderColor'                  : '#FFFFFF',
@@ -156,7 +156,7 @@ module.exports = {
 	ace_editor : {
 								'height':'80%',
 								'position':'absolute',
-								'backgroundColor': 'rgba(255, 255, 255, 0.6)'
+								'backgroundColor': 'rgba(245, 245, 245, 0.6)'
 							} 
 }
 

@@ -50,7 +50,7 @@
 		render() {
     	return (
 				<div style={{height:'100%',width:'100%',position:'absolute'}}>
-					<button style={styles.button} type="button" id="update" onClick={this.refreshData}>Update</button>
+					<button style={styles.button} type="button" id="update" onClick={this.refreshData}>Generate</button>
     			<div >{this.textArea()}</div>
 				</div>
     	);

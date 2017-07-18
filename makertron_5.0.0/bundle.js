@@ -24329,7 +24329,7 @@ module.exports = {
 					logo: {
 										'padding': '18px',
 										'margin': '0px',
-										'fontFamily': "EngineerHand",
+										'fontFamily': "din1451alt",
 										'fontSize': '30px',
 										'fontWeight': 'Bold',
 										'color': '#303F9F',
@@ -24343,7 +24343,7 @@ module.exports = {
 					about: {
 										'padding': '0px',
 										'margin': '0px',
-										'fontFamily': "EngineerHand",
+										'fontFamily': "din1451alt",
 										'fontSize': '30px',
 										'fontWeight': 'Bold',
 										'color': '#303F9F',
@@ -24378,13 +24378,13 @@ module.exports = {
 					}, _defineProperty(_console, 'marginRight', '0px'), _defineProperty(_console, 'marginBottom', '4px'), _defineProperty(_console, 'backgroundColor', '#303F9F'), _defineProperty(_console, 'borderColor', '#FFFFFF'), _defineProperty(_console, 'borderWidth', '1px'), _defineProperty(_console, 'width', secondary_width), _defineProperty(_console, 'height', '50vh'), _console),
 
 					button: _defineProperty({
-										'fontFamily': "EngineerHand",
+										'fontFamily': "din1451alt",
 										'fontSize': '20px',
 										'fontWeight': 'Bold',
 										'color': '#303F9F',
 										'borderRadius': '3px',
 										'borderStyle': 'solid',
-										'padding': '4px',
+										'padding': '6px',
 										'margin': '4px',
 										'backgroundColor': '#303F9F',
 										'borderColor': '#FFFFFF',
@@ -24396,7 +24396,7 @@ module.exports = {
 					ace_editor: {
 										'height': '80%',
 										'position': 'absolute',
-										'backgroundColor': 'rgba(255, 255, 255, 0.6)'
+										'backgroundColor': 'rgba(245, 245, 245, 0.6)'
 					}
 };
 
@@ -44983,7 +44983,7 @@ module.exports = function (_React$Component) {
 				_react2.default.createElement(
 					'button',
 					{ style: _style2.default.button, type: 'button', id: 'update', onClick: this.refreshData },
-					'Update'
+					'Generate'
 				),
 				_react2.default.createElement(
 					'div',
