@@ -39,7 +39,7 @@ A few good efforts are being made at this and they may improve in the future. We
 
 The Makertron Client is a demonstration interface written in <a href="https://facebook.github.io/react/">ReactJS</a> using <a href="Three.js.org">Three.js</a> to display generated geometry. One of the goals of the Makertron design philosophy was to 'decouple' the client interface from the geometry engine leaving you free to build a platform that meets whatever specific specialised requirements you have. 
 
-The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 90% ( this needs of course to be backed up with unit tests and proper validation ! ) of the OpenSCAD language specification is now supported and we are in the robustness and compatibility testing phase. 
+The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 90% of the OpenSCAD language specification is now supported and we are in the robustness and compatibility testing phase. This of course needs to be backed up with unit tests. The 90% number is based on having worked through the OpenSCAD documentation from the top to the bottom. It does not currently support the import/export options or text. 
 
 We are awaiting some new browser features ( OffScreenCanvas ) that will improve the web based client considerably. 
 
