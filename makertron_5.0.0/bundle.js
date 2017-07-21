@@ -44659,8 +44659,8 @@ var Start = function (_React$Component3) {
 			var _this = this;
 			if (sessionStorage.text === undefined) {
 				_jquery2.default.get("pipe.scad", function (data) {
-					console.log("taking from file");
 					_this.setState({ text: data });
+					_this.updateLog("Loading default example...\n");
 				});
 			}
 		}
@@ -45574,7 +45574,7 @@ var CONFIG_DATA = { "SERVER_ADDRESS": "http://makertron.io", "SERVER_PATH": "mak
 // ==========================================================
 // MAKERTRON Procedural Cad System Server Module 
 // Damien V Towning 
-// 2015
+// 2017
 
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 // ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -45612,14 +45612,17 @@ module.exports = function Parser(callback) {
 	this.tokens = [];
 	this.ntokens = [];
 
+	// ----------------------------------------------------------
+	// Set character at position in index
+	// ----------------------------------------------------------
 	this.setCharAt = function (str, index, chr) {
 		if (index > str.length - 1) return str;
 		return str.substr(0, index) + chr + str.substr(index + 1);
 	};
 
-	// =============================================================
+	// ----------------------------------------------------------
 	// buffer to a string 
-	// =============================================================
+	// ----------------------------------------------------------
 	this.toStr = function (buffer) {
 		var nstring = "";
 		for (var i = 0; i < buffer.length; i++) {
@@ -45629,10 +45632,9 @@ module.exports = function Parser(callback) {
 		return nstring;
 	};
 
-	// ==============================================================
+	// ----------------------------------------------------------
 	// trim comments 
-	// ==============================================================
-
+	// ----------------------------------------------------------
 	this.trimComments = function (string) {
 		for (var i = 0; i < string.length; i++) {
 			var result = string[i].split(/(\/\/)/);
@@ -45641,10 +45643,9 @@ module.exports = function Parser(callback) {
 		return string;
 	};
 
-	// ===========================================================
+	// ----------------------------------------------------------
 	// Lex the input string
-	// ===========================================================
-
+	// ----------------------------------------------------------
 	this.load = function (buffer) {
 		buffer = buffer.replace(/([\t])/g, '');
 
@@ -45703,17 +45704,15 @@ module.exports = function Parser(callback) {
 		buffer = lodash.flatten(buffer);
 		buffer = this.toStr(buffer);
 		buffer = buffer.split("\n");
-
 		buffer = this.trimComments(buffer);
-
 		for (var i = 0; i < buffer.length; i++) {
 			if (buffer[i] != '') this.tokens.push(buffer[i]);
 		}
 	};
 
-	// ==============================================================
+	// ----------------------------------------------------------
 	// Is a token in the in the list
-	// ==============================================================
+	// ----------------------------------------------------------
 	this.isAssigned = function (token, lst) {
 		if (token === undefined) var token = this.tokens[this.stack];
 		for (var i = 0; i < lst.length; i++) {
@@ -45722,9 +45721,9 @@ module.exports = function Parser(callback) {
 		return false;
 	};
 
-	// ==============================================================
+	// ----------------------------------------------------------
 	// Is a token a number ?
-	// ==============================================================
+	// ----------------------------------------------------------
 	this.isNumber = function (token) {
 		if (token === undefined) var token = this.tokens[this.stack];
 		token = token.replace(/([0-9])/g, '');
@@ -45734,9 +45733,9 @@ module.exports = function Parser(callback) {
 		return token.length === 0 ? true : false;
 	};
 
-	// ===============================================================
+	// ----------------------------------------------------------
 	// Is a token a string ?
-	// ===============================================================
+	// ----------------------------------------------------------
 	this.isString = function (token) {
 		if (token === undefined) var token = this.tokens[this.stack];
 		token = token.replace(/([A-Z-a-z])/g, '');
@@ -45745,22 +45744,24 @@ module.exports = function Parser(callback) {
 		return token.length === 0 ? true : false;
 	};
 
-	// ==============================================================
+	// ------------------------------------------------------------
 	// Is token in list 
-	// ==============================================================
-	this.isInList = function (lst) {
+	// ------------------------------------------------------------
+	this.isInList = function (lst, tokens) {
+		if (tokens === undefined) var tokens = this.tokens;
 		var i = 0;
 		for (i = 0; i < lst.length; i++) {
-			if (this.tokens[this.stack] === lst[i]) return true;
+			if (tokens[this.stack] === lst[i]) return true;
 			if (lst[i] === "STRING") {
-				if (this.isString(this.tokens[this.stack])) return true;
+				if (this.isString(tokens[this.stack])) return true;
 			}
 		}
 		return false;
 	};
-	// =============================================================
+
+	// ------------------------------------------------------------
 	// Walk a tree 
-	// =============================================================
+	// ------------------------------------------------------------
 	this.walk = function (tree) {
 		var i = 0;
 		var state = true;
@@ -45774,16 +45775,16 @@ module.exports = function Parser(callback) {
 		}
 	};
 
-	// =============================================================
+	// -----------------------------------------------------------
 	// increment stack 
-	// =============================================================
+	// -----------------------------------------------------------
 	this.next = function () {
 		this.stack++;
 	};
 
-	// =============================================================
+	// -----------------------------------------------------------
 	// Copy current token to new tree	
-	// =============================================================
+	// -----------------------------------------------------------
 	this.copy = function (target) {
 		if (target === undefined) {
 			this.ntokens.push(this.tokens[this.stack]);
@@ -45793,9 +45794,9 @@ module.exports = function Parser(callback) {
 		this.next();
 	};
 
-	// =============================================================
+	// -----------------------------------------------------------
 	// Grab range of tokens from tree
-	// =============================================================
+	// -----------------------------------------------------------
 	this.grab = function (st, en) {
 		var chnk = [];
 		var i = 0;
@@ -45805,9 +45806,9 @@ module.exports = function Parser(callback) {
 		return chnk;
 	};
 
-	// =============================================================
+	// -----------------------------------------------------------
 	// find matching closure 
-	// =============================================================
+	// -----------------------------------------------------------
 	this.findPair = function (a, b, index, lst) {
 		var i = 0,
 		    o = 0,
@@ -45824,39 +45825,135 @@ module.exports = function Parser(callback) {
 		return -1;
 	};
 
-	// ============================================================
+	// ----------------------------------------------------------
 	// remove duplicates
-	// ============================================================
+	// ----------------------------------------------------------
 	this.removeDuplicates = function (lst) {
 		return lodash.uniqWith(lst, lodash.isEqual);
 	};
 
-	// ============================================================
+	// ----------------------------------------------------------
 	// seek a token 
-	// ============================================================
-	this.seek = function (tkn) {
-		for (var i = this.stack; i < this.tokens.length; i++) {
-			if (this.tokens[i] === tkn) return i;
+	// ----------------------------------------------------------
+	this.seek = function (tkn, tokens, ind) {
+		if (tokens === undefined) var tokens = this.tokens;
+		if (ind === undefined) var ind = this.stack;
+		for (var i = ind; i < tokens.length; i++) {
+			if (tokens[i] === tkn) return i;
 		}
 		console.log("Did not find ", tkn);
-		return -1;
+		return false;
 	};
 
-	// ===========================================================
+	// ----------------------------------------------------------
 	// cross out a series of tokens 
-	// ===========================================================
+	// ----------------------------------------------------------
 	this.delete = function (start, end) {
 		for (var i = start; i < end; i++) {
 			this.tokens[i] = "*";
 		}
 	};
 
+	// --------------------------------------------------------
+	// Generate a hashed string
+	// --------------------------------------------------------
+	this.makeId = function () {
+		var text = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+		for (var i = 0; i < 5; i++) {
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+		}return text;
+	};
+
+	// -------------------------------------------------
+	// Insert a token in to target at i 
+	// -------------------------------------------------
+	this.insert = function (i, tkns, target) {
+		var ii = 0;
+		if (target === undefined) {
+			target = this.tokens;
+		}
+		for (ii = 0; ii < tkns.length; ii++) {
+			target.splice(i, 0, tkns[ii]);
+		}
+	};
+
+	// ---------------------------------------------------------------
+	// Take arguments to function and split up in to array 
+	// ---------------------------------------------------------------
+	this.splitArguments = function (start, end) {
+		var i = 0,
+		    ii = 0,
+		    token_depth = 0,
+		    splits = [],
+		    chk = "",
+		    args = [];
+		for (i = start; i < end; i++) {
+			if (token_depth === 0 && this.tokens[i] === ",") splits.push(i);
+			if (this.tokens[i] === "[" || this.tokens[i] === "(") token_depth++;
+			if (this.tokens[i] === "]" || this.tokens[i] === ")") token_depth--;
+		}
+
+		splits.push(end);
+
+		for (i = 0; i < splits.length; i++) {
+			var end = splits[i];
+			for (ii = start; ii < end; ii++) {
+				if (start === ii && this.tokens[ii] === ",") {/* do nothing */} else {
+					chk += this.tokens[ii];
+				}
+			}
+			args.push(chk);
+			chk = "";
+			start = end;
+		}
+		return args;
+	};
+
+	// -----------------------------------------------------------
+	// Check closure is complete 
+	// -----------------------------------------------------------
+	this.isClosed = function () {
+		var start = "",
+		    end = "",
+		    state = true,
+		    i = 0;
+		// Now check the closure for conformance 
+		for (i = 0; i < this.tokens.length; i++) {
+			if (this.tokens[i] === "(") {
+				start = "(";end = ")";
+			}
+			if (this.tokens[i] === "{") {
+				start = "{";end = "}";
+			}
+			if (this.tokens[i] === "[") {
+				start = "[";end = "]";
+			}
+			if (start !== "" && end !== "") {
+				var result = this.findPair(start, end, i);
+				if (result === -1) {
+					state = false;
+				}
+			}
+			start = "";
+			end = "";
+		}
+		return state;
+	};
+
 	// ==========================================================
 	// process boolean operations union,intersection,difference
 	// ==========================================================
 	this.process_booleans = function () {
+
 		this.tokens[this.findPair("{", "}", this.stack)] = "\nthis." + this.tokens[this.stack - 3] + "_end()\n";
 		this.ntokens.push("\nthis." + this.tokens[this.stack - 3] + "()\n");
+
+		// Note we know what comes after since the tree confirmed the '(',')','{' 
+		// but you can also see how a variation would break it. (a=b) for example. 
+		// Also note how the closure has been transformed in to a stack operation. 
+		// difference() -> pushes to the csg stack 
+
 		this.next();
 	};
 
@@ -45875,12 +45972,15 @@ module.exports = function Parser(callback) {
 		}
 		this.ntokens.push(")", "{", "return");
 		var s = this.seek(";");
-		var chk = this.grab(p + 2, s);
-		for (var i = 0; i < chk.length; i++) {
-			this.ntokens.push(chk[i]);
+		if (s !== false) {
+			// probably broken right now 
+			var chk = this.grab(p + 2, s);
+			for (var i = 0; i < chk.length; i++) {
+				this.ntokens.push(chk[i]);
+			}
+			this.ntokens.push("}");
+			this.stack = s + 1;
 		}
-		this.ntokens.push("}");
-		this.stack = s + 1;
 	};
 
 	// ========================================================================
@@ -45891,6 +45991,7 @@ module.exports = function Parser(callback) {
 		this.stack = p + 1;
 		if (this.tokens[this.stack] === "=") {
 			this.stack = this.seek(";") + 1;
+			if (this.stack === false) console.log("Error processing globals");
 		} else if (this.tokens[this.stack] === "{") {
 			this.stack = this.findPair("{", "}", this.stack) + 1;
 		}
@@ -45956,6 +46057,32 @@ module.exports = function Parser(callback) {
 	};
 
 	// ==========================================================
+	// Convert all arguments to Json
+	// ==========================================================
+	this.process_arguments_toJson = function () {
+		var i = 0,
+		    arg_num = 0,
+		    comma = "";
+		var p = this.findPair("(", ")", this.stack);
+		var args = this.splitArguments(this.stack + 1, p);
+		this.ntokens.push(this.tokens[this.stack - 1], "(");
+		for (i = 0; i < args.length; i++) {
+			if (this.seek("=", args[i], 0) !== false) {
+				// Was it a variable assignment a = b 
+				args[i] = args[i].replace("=", ":");
+				arg_num++;
+			} else {
+				// Then it is either a number or a string or something complex like array. 
+				args[i] = "arg" + arg_num + ":" + args[i];
+				arg_num++;
+			}
+			this.ntokens.push(comma, args[i]);
+			comma = ",";
+		}
+		this.stack = p;
+	};
+
+	// ==========================================================
 	// Process trig functions 
 	// ==========================================================
 	this.process_trig = function () {
@@ -45966,13 +46093,11 @@ module.exports = function Parser(callback) {
 	// =====================================================================
 	// Process operations 
 	// ===================================================================== 
-
 	this.process_operations = function () {
 		this.stack--; // because we moved forwards on '(' but we want to be on the operation 
 		this.ntokens.push("\nthis." + this.tokens[this.stack]) + "\n";
 		var operation = this.tokens[this.stack];
 		this.next();
-
 		// closure around operations which we CANNOT disguard	
 		var p = this.findPair("(", ")", this.stack);
 		if (this.tokens[p + 1] === "{") {
@@ -45994,58 +46119,6 @@ module.exports = function Parser(callback) {
 		this.ntokens[this.ntokens.length] = "}";
 
 		this.next();
-	};
-
-	// --------------------------------------------------------
-	// Generate a hashed string
-	// --------------------------------------------------------
-	this.makeId = function () {
-		var text = "";
-		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		for (var i = 0; i < 5; i++) {
-			text += possible.charAt(Math.floor(Math.random() * possible.length));
-		}return text;
-	};
-
-	this.insert = function (i, tkns, target) {
-		var ii = 0;
-		if (target === undefined) {
-			target = this.tokens;
-		}
-		for (ii = 0; ii < tkns.length; ii++) {
-			target.splice(i, 0, tkns[ii]);
-		}
-	};
-
-	// ============================================================
-	// Check closure is complete 
-	// 
-	this.isClosed = function () {
-		var start = "",
-		    end = "",
-		    state = true,
-		    i = 0;
-		// Now check the closure for conformance 
-		for (i = 0; i < this.tokens.length; i++) {
-			if (this.tokens[i] === "(") {
-				start = "(";end = ")";
-			}
-			if (this.tokens[i] === "{") {
-				start = "{";end = "}";
-			}
-			if (this.tokens[i] === "[") {
-				start = "[";end = "]";
-			}
-			if (start !== "" && end !== "") {
-				var result = this.findPair(start, end, i);
-				if (result === -1) {
-					state = false;
-				}
-			}
-			start = "";
-			end = "";
-		}
-		return state;
 	};
 
 	// ============================================================
@@ -46111,21 +46184,10 @@ module.exports = function Parser(callback) {
 				}
 			}
 		}
-
 		if (this.isClosed() === false) {
 			callback.updateLog("Incomplete or Malformed Closure\n");
 			return false;
 		}
-	};
-
-	// ============================================================
-	// Handle value=pair ambiguity where we are just given ([ or ,[
-	// ============================================================
-	this.ambiguous_bullshit = function () {
-		this.ntokens.push(this.tokens[this.stack - 1]);
-		this.ntokens.push("(");
-		this.next();
-		if (this.tokens[this.stack] === "[") this.ntokens.push("vector", "=");
 	};
 
 	// ==========================================================
@@ -46230,6 +46292,7 @@ module.exports = function Parser(callback) {
 					_this.sort_globals();
 				}]]);
 			}
+
 			var ii = 0;
 			this.stack = 0;
 			while (this.stack < this.tokens.length) {
@@ -46239,8 +46302,9 @@ module.exports = function Parser(callback) {
 				}
 				this.next();
 			}
+			// Note that before this point everything was existing tree altering. This is ugly and needs a rethink 
 
-			// parse booleans instructions
+			// parse boolean instructions
 			this.stack = 0;
 			while (this.stack < this.tokens.length) {
 				// walk our stack of tokens 	
@@ -46310,7 +46374,7 @@ module.exports = function Parser(callback) {
 				}]]);
 			}
 
-			// Fix operations with ill formed name=value pairs. That is anything of the form ([ or ,[ becomes vector=[ )   
+			// Process arguments in to json strings   
 			this.tokens = this.ntokens;
 			this.ntokens = [];
 			this.stack = 0;
@@ -46321,7 +46385,7 @@ module.exports = function Parser(callback) {
 				}, function () {
 					_this.copy();
 				}], [["("], function () {
-					_this.ambiguous_bullshit();
+					_this.process_arguments_toJson();
 				}, function () {
 					_this.ntokens.push(_this.tokens[_this.stack - 1]); // make sure to include previous token if we failed 
 					_this.copy();
