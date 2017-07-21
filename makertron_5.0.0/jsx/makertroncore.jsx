@@ -201,8 +201,8 @@
 			var _this = this 			
 			if ( sessionStorage.text === undefined ) {
 				$.get( "pipe.scad", function( data ) { 
-					console.log("taking from file") 	
 					_this.setState({text:data})
+					_this.updateLog("Loading default example...\n") 	
 				});
 			} 			 
 		}

@@ -31,7 +31,9 @@ One of the goals of the Makertron design philosophy is to have one clear clean r
 
 This stands in contrast to OpenSCAD client model which features a plethora of complex rendering tricks to avoid creating geometry ( <a href="http://www.nigels.com/research/egsggh98.pdf">GoldFeather</a>) in order to try and manage the speed/quality challenge that all constructive geometry engines must face. 
 
-Lastly the OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the interface and supporting code that it is hard for the language to evolve or move forwards from that interface. It is our opinion that this effort has stalled and something new needed to be developed to address these issues. 
+Lastly the OpenSCAD parser while supporting an excellent CSG language ( though in some areas ambiguous ) is so glued to the code base which in turn is glued to the interface and supporting codde. 
+
+It is our opinion that this effort has stalled and something new needed to be developed to address these issues. 
 
 A few good efforts are being made at this and they may improve in the future. We are adding our own to the list. 
 
@@ -39,8 +41,10 @@ A few good efforts are being made at this and they may improve in the future. We
 
 The Makertron Client is a demonstration interface written in <a href="https://facebook.github.io/react/">ReactJS</a> using <a href="Three.js.org">Three.js</a> to display generated geometry. One of the goals of the Makertron design philosophy was to 'decouple' the client interface from the geometry engine leaving you free to build a platform that meets whatever specific specialised requirements you have. 
 
-The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 90% of the OpenSCAD language specification is now supported and we are in the robustness and compatibility testing phase. This of course needs to be backed up with unit tests. The 90% number is based on having worked through the OpenSCAD documentation from the top to the bottom. It does not currently support the import/export options or text. 
+The Makertron engine supports a sophisticated transpiler that currently supports the default parse target of the <a href="http://www.openscad.org">OpenSCAD</a> language. At least 0.00001% of the OpenSCAD language specification is now supported and we are in the robustness and compatibility testing phase. This of course needs to be backed up with unit tests. The 0.00001% number is based on having worked through the OpenSCAD documentation from the top to the bottom. It does not currently support the import/export options or text. 
 
+*0.00001% because apparently this is all impossible and to hard :)
+ 
 We are awaiting some new browser features ( OffScreenCanvas ) that will improve the web based client considerably. 
 
 The Makertron architecture makes the following possible: 
@@ -61,7 +65,6 @@ We have things in the real world we actually want to build. The computational ge
 The design goal is that with the Makertron client and server code you can develop complex constructive geometry at ‘scale’ and at ‘speed’ in a formal language. This is a step towards specification driven cad design. Because of the nature of this design multi core processing and parallelisation becomes possible. 
 
 As Makertron develops it will gain the ability to manage complex assembly and production tasks from the start of the design pipe line all the way through to manufacturing. This will include quality operations on geometry. Easy connectivity with the Internet of things. All of the features that we should expect from any performant web aware modular 'modern' language. 
-
 
 <h2>How Do I Build It?</h2>
 
@@ -96,7 +99,7 @@ With both Docker client and server instances up and the config of the client set
 
 # Building the BREP binary 
 
-More to come on this. Still writing the documentation for it. 
+More to come on this. Still writing the documentation for it. At the moment only the core libraries and the brep.so are in the build. 
 
 <h2>License</h2>
  Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. 
@@ -108,6 +111,7 @@ Makertron could not exist without the following beautiful and brilliant contribu
 <li>ReactJS</li>
 <li>NodeJS</li>
 </br>
+
 Thank you for making so much that is wonderful possible.... 
 
 
