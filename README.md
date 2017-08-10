@@ -35,7 +35,7 @@ color/colour   | n         | devel    |
 <a href="http://makertron.io">makertron.io</a>
 
 <h2>Motivation</h2>
-The Makertron has been developed because we simply have not been able to find a solid platform for constructive geometry generation and we realise that others are also in the same boat as ourselves. 
+The Makertron has been developed because we simply have not been able to find a solids platform for constructive geometry generation that has a server side component and a client component and we realise that others are also in the same boat as ourselves. 
 
 <h2>Makertron Server</h2> 
 
