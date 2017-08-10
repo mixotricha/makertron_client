@@ -1,20 +1,25 @@
-// ==========================================================
-// MAKERTRON Procedural Cad System  
-// Damien V Towning 
-// 2016
 
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-// DISCLAIMED. IN NO EVENT SHALL Damien Towning BE LIABLE FOR ANY
-// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-// 
-// ==========================================================
+/***************************************************************************
+ *   Copyright (c) Damien Towning         (connolly.damien@gmail.com) 2017 *
+ *                                                                         *
+ *   This file is part of the Makertron CSG cad system.                    *
+ *                                                                         *
+ *   This library is free software; you can redistribute it and/or         *
+ *   modify it under the terms of the GNU Library General Public           *
+ *   License as published by the Free Software Foundation; either          *
+ *   version 2 of the License, or (at your option) any later version.      *
+ *                                                                         *
+ *   This library  is distributed in the hope that it will be useful,      *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU Library General Public License for more details.                  *
+ *                                                                         *
+ *   You should have received a copy of the GNU Library General Public     *
+ *   License along with this library; see the file COPYING.LIB. If not,    *
+ *   write to the Free Software Foundation, Inc., 59 Temple Place,         *
+ *   Suite 330, Boston, MA  02111-1307, USA                                *
+ *                                                                         *
+ ***************************************************************************/
 
 var csgProcess = (function () {
   
@@ -22,7 +27,6 @@ var csgProcess = (function () {
 
  /*global $,widgets,window,CSG,document,makertron*/
  /*jshint -W069 */
-	
 	
 	importScripts('three/three.js');
 	//importScripts('base64.js'); 
@@ -49,6 +53,7 @@ var csgProcess = (function () {
 
 	var postResult = function(result) { 
 			postLog("finished processing on server...") 
+			console.log( result ) 
 			postMessage({ type: 'result' , data: result })
 	}
 
@@ -58,12 +63,17 @@ var csgProcess = (function () {
 
 	var doNothing = function() {}
 
+	var lubdub    = function() { 
+		postMessage( { type: 'clear' , data: "" } )
+	}
+
 	var fetchStl = function(script) { 
 			var socket = io(SERVER_ADDRESS)
 			socket.emit( 'OPENSCAD',               {script:script} ) // send script
 			socket.on  ( 'OPENSCADRES' ,           postResult      )  
 			socket.on  ( 'OPENSCADLOG' ,           postLog         )  
 			socket.on  ( 'ERR_CONNECTION_REFUSED', doNothing       ) 
+			//socket.on  ( 'ping'             , lubdub          )
 	}
 
 	// Output our scene to the renderer 

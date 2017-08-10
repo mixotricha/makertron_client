@@ -8,6 +8,28 @@ The constructive geometry server deals in stacks of geometrical operations and t
 
 This is in sharp contrast to the OpenSCAD project design where the interface and geometry engine are tightly coupled and issues of speed and scale are readily apparent and non trivial to solve. The Makertron aims to be OpenSCAD compatible while fixing some ambiguities in the OpenSCAD language itself and shifting the parsing of the language to what we deem to be a more 'solid' parsing core through the addition of a transpiler. This will result in better error checking and more flexibility in the language without significant parser development overhead. 
 
+<h1> Support Matrix</h1> 
+
+Feature        | Available | state    | Note
+---------------|-----------|----------|-------------------------------
+sphere         | y         | stable   | Does not yet support $fd / $fn 
+cube           | y         | stable   | Does not yet support $fd / $fn
+cylinder       | y         | stable   | Does not yet support $fd / $fn
+polyhedron     | y         | stable   | Does not yet support $fd / $fn
+polygon        | y         | stable   | Does not yet support $fd / $fn
+circle         | y         | stable   | Does not yet support $fd / $fn
+union          | y         | stable   | 
+intersection   | y         | stable   | 
+difference     | y         | stable   |
+linear_extrude | y         | unstable | Does not support twit yet 
+minkowski      | y         | unstable | Still testing 
+hull           | n         | devel    | 
+rotate         | y         | stable   |
+translate      | y         | stable   |
+scale          | n         | devel    |
+color/colour   | n         | devel    |
+
+
 <h2>Demonstration</h2>
 
 <a href="http://makertron.io">makertron.io</a>
