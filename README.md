@@ -22,7 +22,7 @@ union          | y         | stable   |
 intersection   | y         | stable   | 
 difference     | y         | stable   |
 linear_extrude | y         | unstable | Does not support twist yet 
-minkowski      | y         | unstable | Still testing.  
+minkowski      | y         | unstable | Still testing 
 hull           | n         | devel    | 
 rotate         | y         | stable   |
 translate      | y         | stable   |
@@ -42,9 +42,9 @@ The Makertron has been developed because we simply have not been able to find a 
 The Makertron server supports its own internal geometry engine based on a BREP representation. We have spent considerable time testing various alternate geometry engines and exploring the topology problems inherent in providing verifiable water tight consistent meshes at scale and speed. 
 
 We have concluded that the <a href="https://www.opencascade.com/doc/occt-6.7.0/overview/html/occt_brep_format.html">BREP</a> representation 
-provides just the right balance between speed and quality and is preferable to the infinite precision solution provided by <a href="http://www.cgal.org/">CGAL</a> 
+is good for speed but we also acknowledge that some jobs are better performed by <a href="http://www.cgal.org/">CGAL</a>. Finding just the right balance between speed and quality and having a server that chucks real geometry around is what I want.  
 
-One of the goals of the Makertron design philosophy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instantiation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. 
+One of the goals of the Makertron design philosophy is to have one clear clean rendering pipe line that produces consistent meshes all the way from the instantiation of the BREP equations all the way through to the requesting client while keeping the server and client loosely coupled. Recent milestone has been reached in passing backwards and forwards between the BREP and the CGAL. 
 
 <li>Run as many cores of the server as you want.</li>
 <li>Split your constructive geometry problems up how you want.</li>
@@ -125,6 +125,8 @@ With both Docker client and server instances up and the config of the client set
 # Building the BREP binary 
 
 More to come on this. Still writing the documentation for it. At the moment only the core libraries and the brep.so are in the build. 
+
+Source tree is here : <a href="https://github.com/mixotricha/brep_shared_library">brep_shared_library</a>
 
 <h2>License</h2>
  Makertron is Free Software released under the <a href="http://www.gnu.org/licenses/gpl-2.0.html">General Public License version 2</a>. 
