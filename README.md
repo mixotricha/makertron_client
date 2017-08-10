@@ -21,8 +21,8 @@ circle         | y         | stable   | Does not yet support $fd / $fn
 union          | y         | stable   | 
 intersection   | y         | stable   | 
 difference     | y         | stable   |
-linear_extrude | y         | unstable | Does not support twit yet 
-minkowski      | y         | unstable | Still testing 
+linear_extrude | y         | unstable | Does not support twist yet 
+minkowski      | y         | unstable | Still testing.  
 hull           | n         | devel    | 
 rotate         | y         | stable   |
 translate      | y         | stable   |
