@@ -30,14 +30,14 @@
  
 		// These are functions that will have .this appended 
 		// these arguments will parsed to json format unless they are excluded 
-		this.modules  = ["circle", "sphere","translate","rotate","cube","cylinder","linear_extrude","polygon","polyhedron","echo"] 
+		this.modules  = ["circle", "sphere","translate","scale","rotate","cube","cylinder","linear_extrude","polygon","polyhedron","echo"] 
 
 		// These are tokens that are not to be classed as variables for each module scope 
 		this.standard = [ "for" ,  "false" , "true", "if" , "max" , "min" , "sin" , "cos" , "union" , "difference" , "intersection", 
-		                  "minkowski","rotate" , "translate" , "+" , "-" , "++" , "--" , "*" , "function" , "sqrt" , ";" ]
+		                  "minkowski","rotate" , "translate" , "scale" , "+" , "-" , "++" , "--" , "*" , "function" , "sqrt" , ";" ]
 
 		// These are funnctioned excluded from having arguments parsed in to json 
-		this.exclude = [ "translate" , "rotate" , "echo" ]  
+		this.exclude = [ "translate" , "scale", "rotate" , "echo" ]  
 
 		this.globals = [] 
 		this.stack = 0 
@@ -255,7 +255,7 @@
 			for ( var i = ind; i < tokens.length; i++ ) { 
 				if ( tokens[i] === tkn ) return i 
 			}
-			console.log("Did not find " , tkn ) 
+			//console.log("Did not find " , tkn ) 
 			return false 
 		}
 
@@ -377,7 +377,7 @@
 			this.stack = p + 1 
 			if ( this.tokens[this.stack] === "=" ) { 
 				this.stack = this.seek(";") + 1
-				if ( this.stack === false ) console.log( "Error processing globals" )   
+				//if ( this.stack === false ) console.log( "Error processing globals" )   
 			}
 			else if ( this.tokens[this.stack] === "{" ) { 
 				this.stack = this.findPair("{","}",this.stack)+1 
@@ -716,7 +716,7 @@
 					])
 				}
 			
-				// parse openscad operations ( rotate , translate , ... )   
+				// parse openscad operations ( rotate , translate , scale ... )   
 				this.tokens = this.ntokens 
 				this.ntokens = [] 
 				this.stack = 0 

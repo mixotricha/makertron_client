@@ -40,9 +40,9 @@ var csgProcess = (function () {
 
 	 // Pull server address here because no dom for sessionKeys 
   importScripts("config.js"); 
-  var SERVER_ADDRESS = CONFIG_DATA.SERVER_ADDRESS + ":" + CONFIG_DATA.PORT; 
+  var SERVER_ADDRESS = CONFIG_DATA.SERVER_ADDRESS + ":" + CONFIG_DATA.PORT;
+	var socket
 	
-
 	// ============================================================
 	// Generate three cube 
 	// ============================================================
@@ -51,34 +51,65 @@ var csgProcess = (function () {
 		return new THREE.Mesh(msh,new THREE.MeshNormalMaterial());
 	}
 
+	// =============================================================
+	// Post results back from worker 
+	// =============================================================
 	var postResult = function(result) { 
-			postLog("finished processing on server...") 
-			console.log( result ) 
+			postLog("Finished processing on server...\n\n") 
 			postMessage({ type: 'result' , data: result })
+			socket.emit( 'close'               , ""  ) // we are done close socket 
 	}
 
+	// =============================================================
+	// Post log results back from worker 
+	// =============================================================
 	var postLog = function(result) {
 		postMessage( { type: 'log' , data: arguments[0] } )
 	}
 
-	var doNothing = function() {}
-
-	var lubdub    = function() { 
-		postMessage( { type: 'clear' , data: "" } )
+	// =============================================================
+	// Report errors from Worker
+	// =============================================================
+	var reportError = function() {
+		postMessage( { type: 'error' , data: "Failed to connect to server\n" } )
+		socket.close()
 	}
 
-	var fetchStl = function(script) { 
-			var socket = io(SERVER_ADDRESS)
-			socket.emit( 'OPENSCAD',               {script:script} ) // send script
-			socket.on  ( 'OPENSCADRES' ,           postResult      )  
-			socket.on  ( 'OPENSCADLOG' ,           postLog         )  
-			socket.on  ( 'ERR_CONNECTION_REFUSED', doNothing       ) 
-			//socket.on  ( 'ping'             , lubdub          )
+	// =============================================================
+	// Report Heart Beat  
+	// =============================================================
+	var pulse = function() { 
+		postMessage( { type: 'pulse' , data: "" } )
+	}
+
+	var close = function() { 
+		postMessage({ type: 'close' , data: "" })
+	}
+
+	// =============================================================
+	// Fetch The Geometry   
+	// =============================================================	
+	var fetchGeometry = function(script) {  
+			
+			 
+			socket = io(SERVER_ADDRESS,{ 'connect timeout': 5000 })
+			
+			socket.error
+			socket.emit( 'OPENSCAD'               , {script:script}  ) // send script
+			socket.on  ( 'OPENSCADRES'            , postResult       )  
+			socket.on  ( 'OPENSCADLOG'            , postLog          )  
+			socket.on  ( 'connection_refused'     , reportError      ) 
+			socket.on  ( 'PULSE'                  , pulse            )
+		  socket.on  ( 'close'                  , close            )
+			socket.on  ( 'error'                  , reportError      ) 
+			socket.on  ( 'connect_failed'         , reportError      )
+			socket.on  ( 'reconnect_failed'       , reportError      )
+			socket.on  ( 'connect_error'          , reportError      )
 	}
 
 	// Output our scene to the renderer 
 	onmessage = function(e) {
-	  fetchStl(e['data'])  
+	  fetchGeometry(e['data'])  
 	}
   
 	return {

@@ -173,13 +173,27 @@
 	class Start extends React.Component {
 		constructor(props) {
     	super(props);
-    	this.state = { result: [] , log: "" , text: "" , component: false };
+    	this.state = { result: [] , log: "" , text: "" , component: false , connected : false };
 			this.updateScene = this.updateScene.bind(this);
 			this.handleDrag = this.handleDrag.bind(this)	
 			this.updateDimensions = this.updateDimensions.bind(this) 
   	}
+		progressOn() { 
+			$("#gearstart").css('opacity'  ,   1)
+			$("#gearstop").css('opacity'   ,   0)			
+		}
+		progressOff() { 
+			$("#gearstart").css('opacity'  ,   0)
+			$("#gearstop").css('opacity'   ,   0)			
+		}
+		progressStop() { 
+			$("#gearstart").css('opacity'  ,   0)
+			$("#gearstop").css('opacity'   ,   1)			
+		}
  		updateScene(result,text) {
 			var _this = this
+			this.progressOn()
+			this.setState({ connected: true  })	
 			var myWorker = new Worker("scripts/makertron_worker.js?hash="+makeId()); 
 			myWorker.postMessage( result );
 			myWorker.onmessage = function(e) { 
@@ -187,10 +201,26 @@
 				if ( data['type'] === "result" ) {
 					_this.setState({ result: data['data'] })
 				}	
-				if ( data['type'] === "log" ) _this.updateLog(data['data']+"\n")
-				if ( data['type'] === "clear" ) { 
-					_this.setState({ log   : "" }) 
-					_this.updateLog("") 
+				if ( data['type'] === "log" ) {
+					var out = ""
+					var rows = JSON.parse(data['data'])
+					if ( rows['0'] !== undefined ) out+= rows['0']	 					
+					_this.updateLog(out+"\n")
+				}
+				if ( data['type'] === "pulse" ) { 
+					if ( _this.state.connected === true ) { 
+						_this.progressOn()
+					}
+					else { 
+						_this.progressStop()	
+					}
+				}
+				if ( data['type'] === "close" ) { 
+					_this.setState({ connected: false  })	
+				}
+				if ( data['type'] === "error" ) { 
+					_this.updateLog(data['data']) 
+					_this.progressOff()
 				}
 			}			 
 		}
@@ -235,6 +265,12 @@
 		}
 		componentDidMount() {
 			window.addEventListener("resize", this.updateDimensions);
+			//try { 
+			//	var ocanv = new OffscreenCanvas(width, height);
+			//}
+			//catch(e) { 
+			//	console.log( "Feature Detection Offscreen Canvas failed" , e) 
+			//}
 		}
   	componentWillUnmount() {
 		}
@@ -248,7 +284,11 @@
     		<div style={styles.whole_page}>
 					<div>{this.Login()}</div>
 					<SplitPane split="vertical"  primary="first" defaultSize={$(window).width()-600}>
-      	  	<div>{this.viewer()}</div>
+						<div>
+	      	  	<div style={styles.viewport}>{this.viewer()}</div>
+							<div id="gearstart" style={styles.gears}><img width="100" height="90" src="resource/imgs/gears_started.gif"/></div>
+							<div id="gearstop" style={styles.gears}><img width="100" height="90" src="resource/imgs/gears_stopped.gif"/></div>
+						</div>
       	  	<SplitPane split="horizontal" onDragFinished={this.handleDrag} primary="first" defaultSize={300}>
       	      <div>{this.editor()}</div>
       	      <div>{this.console()}c</div>

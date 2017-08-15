@@ -58,14 +58,19 @@
 			return <TextWidget  patronus={this} text={this.props.text}/>
 		}
 		refreshData() {	
-			var parser = new Parser(this.props.patronus) 
-			parser.load("module foo(){"+sessionStorage.text+"}")  
-			if ( parser.start() === false ) { 
-				this.sendMessage(false)
+			try { 
+				var parser = new Parser(this.props.patronus) 
+				parser.load("module foo(){"+sessionStorage.text+"}")  
+				if ( parser.start() === false ) { 
+					this.sendMessage(false)
+				}
+				else { 
+					var result = parser.dump()
+					this.sendMessage(result)	 
+				}
 			}
-		  else { 
-				var result = parser.dump()
-				this.sendMessage(result)	 
+			catch(e) { 
+				this.sendMessage(false)
 			}
 		}
 		componentDidUpdate() {

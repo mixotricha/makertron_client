@@ -8,27 +8,33 @@ The constructive geometry server deals in stacks of geometrical operations and t
 
 This is in sharp contrast to the OpenSCAD project design where the interface and geometry engine are tightly coupled and issues of speed and scale are readily apparent and non trivial to solve. The Makertron aims to be OpenSCAD compatible while fixing some ambiguities in the OpenSCAD language itself and shifting the parsing of the language to what we deem to be a more 'solid' parsing core through the addition of a transpiler. This will result in better error checking and more flexibility in the language without significant parser development overhead. 
 
-<h1> Support Matrix</h1> 
+<h2>Support Matrix</h2> 
 
 Feature        | Available | state    | Note
 ---------------|-----------|----------|-------------------------------
 sphere         | y         | stable   | Does not yet support $fd / $fn 
 cube           | y         | stable   | Does not yet support $fd / $fn
 cylinder       | y         | stable   | Does not yet support $fd / $fn
+cone           | y         | stable   | Does not yet support $fd / $fn
 polyhedron     | y         | stable   | Does not yet support $fd / $fn
 polygon        | y         | stable   | Does not yet support $fd / $fn
 circle         | y         | stable   | Does not yet support $fd / $fn
+square         | n         | devel    |
 union          | y         | stable   | 
 intersection   | y         | stable   | 
 difference     | y         | stable   |
 linear_extrude | y         | unstable | Does not support twist yet 
+rotate_extrude | n         | devel    | 
 minkowski      | y         | unstable | Still testing 
 hull           | n         | devel    | 
 rotate         | y         | stable   |
 translate      | y         | stable   |
-scale          | n         | devel    |
+scale          | y         | devel    | Still testing
 color/colour   | n         | devel    |
+module         | y         | stable   | 
+function       | y         | unstable | Still testing 
 
+* if/for/else/sin/cos/acos/assignments/equalities : Since this transpiles from OpenSCAD to JS all of JS ability -should- be available. 
 
 <h2>Demonstration</h2>
 

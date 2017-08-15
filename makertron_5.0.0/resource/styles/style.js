@@ -157,7 +157,24 @@ module.exports = {
 								'height':'80%',
 								'position':'absolute',
 								'backgroundColor': 'rgba(245, 245, 245, 0.6)'
-							} 
+							} ,
+
+	ace_console : {
+								'height':'85%',
+								'position':'absolute',
+								'backgroundColor': 'rgba(245, 245, 245, 0.6)',
+								
+							}, 
+
+	gears : { 
+		'position':'absolute',
+		'opacity' : '0' 
+	},
+
+	viewport : { 
+		'position':'absolute'
+	}
+
 }
 
 

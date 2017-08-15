@@ -1,4 +1,4 @@
-
+	
 	/***************************************************************************
 	 *   Copyright (c) Damien Towning         (connolly.damien@gmail.com) 2017 *
 	 *                                                                         *
@@ -20,19 +20,23 @@
 	 *   Suite 330, Boston, MA  02111-1307, USA                                *
 	 *                                                                         *
 	 ***************************************************************************/
-
+	
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	// Console module 
+	// Editor module 
 	// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 	'use strict'
 
 	import React from 'react';
 	import ReactDOM from 'react-dom';
-	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider,DataTable , TableHeader} from 'react-mdl';
 	import $ from "jquery";
-	import styles from '../resource/styles/style.js' 
+
+	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider,DataTable , TableHeader} from 'react-mdl';
+	
+	import styles from '../resource/styles/style.js'  
 	import shared from '../resource/styles/shared.js' 
+
+	import Parser from '../scripts/parser.js' 
 
 	import brace from 'brace' 
 	import AceEditor from 'react-ace'
@@ -42,29 +46,39 @@
 	// --------------------------------------------------------
 	// Fetch project data from server and load up editor 
 	// --------------------------------------------------------
-	module.exports =  class ConsoleComponent extends React.Component {
-    	
+
+	module.exports =  class EditorComponent extends React.Component {
 		constructor(props) {
     	super(props);
-    	this.state = {};
+    	this.state = {text:""};
 			this.refreshData = this.refreshData.bind(this);
   	}
-		refreshData() {		 
+		sendMessage(result) { this.props.patronus.updateScene(result)	  } 
+		textArea() { 
+			return <TextWidget  patronus={this} text={this.props.text}/>
 		}
-		componentWillMount() { 
+		refreshData() {	
+			var parser = new Parser(this.props.patronus) 
+			parser.load("module foo(){"+sessionStorage.text+"}")  
+			if ( parser.start() === false ) { 
+				this.sendMessage(false)
+			}
+		  else { 
+				var result = parser.dump()
+				this.sendMessage(result)	 
+			}
 		}
-	
-			render() {
+		componentDidUpdate() {
+		}
+		render() {
     	return (
-			<div>
-					<div id="output" style={styles.scroller} ></div>
-						<TextWidget  patronus={this} data={this.props.data}/>
-					</div>
-  		
+				<div style={{height:'100%',width:'100%',position:'absolute'}}>
+					<button style={styles.button} type="button" id="update" onClick={this.refreshData}>Generate</button>
+    			<div >{this.textArea()}</div>
+				</div>
     	);
   	}
 	}
-
 
 	// -------------------------------------------------
 	// Wrapper for react ace editor component 
@@ -83,33 +97,31 @@
 		onEnter(event) {	// updata data
 			console.log("We are in here") 
 		}
-		onChange(text) {
+		onChange(text) {  
+			sessionStorage.text = text
+			//this.state.text = text;
 		}
 		componentDidUpdate() {
-			this.ace.editor.scrollToRow(this.ace.editor.getCursorPosition().row+1)
-			this.ace.editor.setReadOnly(true)
+			sessionStorage.text = this.props.text 
 		}
 		render() {
     	return (
 				
 				<AceEditor  
 									key={shared.makeId()}
-									id="consolearea"
-									name="consolearea"
+									id="texteditor"
     							setOptions={{vScrollBarAlwaysVisible:true}}
-									value={this.props.data}
+									value={this.props.text}
 									onChange={this.onChange}
 									editorProps={{$blockScrolling:Infinity}}
-									style={styles.ace_console}
- 									mode="text"
+									style={styles.ace_editor}
+									mode="text"
         					theme="eclipse"
-									
-									ref={instance => { this.ace = instance; }}
-								
  							/>
 				
     	);
   	}
 	}
 
-	
+
+

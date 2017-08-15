@@ -30,7 +30,7 @@
 	import React from 'react';
 	import ReactDOM from 'react-dom';
 	import { Cell , Grid , FABButton , Icon , IconButton , Button , Textfield , Slider,DataTable , TableHeader} from 'react-mdl';
-	import $ from "jquery";
+
 	import styles from '../resource/styles/style.js' 
 	import shared from '../resource/styles/shared.js' 
 
@@ -65,7 +65,6 @@
   	}
 	}
 
-
 	// -------------------------------------------------
 	// Wrapper for react ace editor component 
 	// -------------------------------------------------
@@ -84,10 +83,11 @@
 			console.log("We are in here") 
 		}
 		onChange(text) {
+			this.state.text = text;  
+			sessionStorage.text = text
 		}
-		componentDidUpdate() {
-			this.ace.editor.scrollToRow(this.ace.editor.getCursorPosition().row+1)
-			this.ace.editor.setReadOnly(true)
+		componentDidUpdate() { 
+			//$("#texteditor").resize()
 		}
 		render() {
     	return (
@@ -95,17 +95,14 @@
 				<AceEditor  
 									key={shared.makeId()}
 									id="consolearea"
-									name="consolearea"
     							setOptions={{vScrollBarAlwaysVisible:true}}
 									value={this.props.data}
 									onChange={this.onChange}
 									editorProps={{$blockScrolling:Infinity}}
-									style={styles.ace_console}
+									style={styles.ace_editor}
  									mode="text"
         					theme="eclipse"
 									
-									ref={instance => { this.ace = instance; }}
-								
  							/>
 				
     	);
