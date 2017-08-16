@@ -55,7 +55,7 @@ var csgProcess = (function () {
 	// Post results back from worker 
 	// =============================================================
 	var postResult = function(result) { 
-			postLog("Finished processing on server...\n\n") 
+			postLog('{"0":"Finished processing on server..."}') 
 			postMessage({ type: 'result' , data: result })
 			socket.emit( 'close'               , ""  ) // we are done close socket 
 	}
