@@ -41,4 +41,9 @@ test( pipe_od = 20,
     flange_id = 15, 
     flange_od = 60,     
     holes = 6); 
+
+minkowski() { 
+	cube(size=50,center=true); 
+	sphere(r=25); 
+}
     
